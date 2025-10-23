@@ -17,11 +17,12 @@
 package uk.gov.hmrc.ui.util
 
 object Env {
-  val baseUrl: String = Option(System.getProperty("environment")) match {
-    case Some("dev")   => Urls.DEV
-    case Some("local") => Urls.LOCAL
-    case Some("QA")    => Urls.QA
-    case _             => Urls.LOCAL
+  val baseUrl: String = Option(System.getProperty("environment")).map(_.toLowerCase) match {
+    case Some("dev")     => Urls.DEV
+    case Some("local")   => Urls.LOCAL
+    case Some("qa")      => Urls.QA
+    case Some("staging") => Urls.STAGING
+    case _               => Urls.LOCAL
 
   }
 }
