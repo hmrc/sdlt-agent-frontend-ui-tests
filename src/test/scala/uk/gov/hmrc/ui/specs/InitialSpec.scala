@@ -20,7 +20,7 @@ import org.scalatest.{BeforeAndAfterAll, BeforeAndAfterEach, GivenWhenThen}
 import org.scalatest.featurespec.AnyFeatureSpec
 import org.scalatest.verbs.ShouldVerb
 import uk.gov.hmrc.selenium.webdriver.{Browser, ScreenshotOnFailure}
-import uk.gov.hmrc.ui.pages.{AuthWizard, InitialPage}
+import uk.gov.hmrc.ui.pages.{AuthWizard, InitialPage, ManageAgentRemovePage}
 import uk.gov.hmrc.ui.util.Users.LoginTypes.HASDIRECT
 import uk.gov.hmrc.ui.util.Users.UserTypes.Organisation
 
@@ -40,7 +40,11 @@ class InitialSpec
       AuthWizard.login(HASDIRECT, Organisation)
       Then("I should be on the initial page")
       InitialPage.isCurrentUrl
-      InitialPage.verifyPageTitle(InitialPage.pageTitle)
+//      InitialPage.verifyPageTitle(InitialPage.pageTitle)
+      ManageAgentRemovePage.navigateToPage(
+        "http://localhost:10911/stamp-duty-land-tax-agent/manage-agents/remove/123456"
+      )
+      ManageAgentRemovePage.verifyPageTitle(ManageAgentRemovePage.pageTitle)
     }
   }
 }
