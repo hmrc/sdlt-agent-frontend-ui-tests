@@ -16,11 +16,17 @@
 
 package uk.gov.hmrc.ui.pages
 
-object InitialPage extends BasePage {
+import org.openqa.selenium.By
 
-  override def pageUrl: String = "stamp-duty-land-tax-agent"
+object AgentsDetailsPage extends BasePage {
+
+  override def pageUrl: String = "/manage-agents/agent-overview?storn=STN001&paginationIndex=1"
+  val btnAddAgent: By          = By.xpath("//a[@role = 'button' and contains(@class, 'govuk-button')]")
 
   override def pageTitle: String =
-    "sdlt-agent-frontend - Stamp Taxes Online - GOV.UK"
+    "Agent Details - Manage Agents - Stamp Taxes Online - GOV.UK"
+
+  def clickAddAgent(): Unit =
+    click(btnAddAgent)
 
 }

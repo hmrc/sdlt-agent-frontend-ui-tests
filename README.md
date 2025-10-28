@@ -1,12 +1,12 @@
 **This is the template README. Please update this with project specific content.**
 
-# sdlt-agent-frontend-ui-tests
+# SDLT Agent Frontend UI Tests
 
-<SERVICE_NAME> UI journey tests.
+UI journey tests suite for the [sdlt-agent-frontend](https://github.com/hmrc/sdlt-agent-frontend) using SeleniumWebdriver with ScalaTest.
 
 ## Pre-requisites
 
-### Services
+### Starting Services
 
 Start Mongo Docker container as follows:
 
@@ -14,41 +14,42 @@ Start Mongo Docker container as follows:
 docker run --rm -d -p 27017:27017 --name mongo percona/percona-server-mongodb:6.0
 ```
 
-Start `<SERVICE_MANAGER_PROFILE>` services as follows:
+To start the required services via [service manager](https://github.com/hmrc/sm2), run:
 
 ```bash
-sm2 --start <SERVICE_MANAGER_PROFILE>
+sm2 --start SDLT_ALL
 ```
 
-## Tests
-
-Run tests as follows:
+### Running tests
 
 * Argument `<browser>` must be `chrome`, `edge`, or `firefox`.
 * Argument `<environment>` must be `local`, `dev`, `qa` or `staging`.
 
+To run the UI tests locally, execute the script:
+
 ```bash
-sbt clean -Dbrowser="<browser>" -Denvironment="<environment>" test testReport
+./run-tests.sh <browser> <environment>
 ```
 
-## Scalafmt
+### Running tests - Environment
 
-Check all project files are formatted as expected as follows:
+To run the tests against an environment set the corresponding `host` environment property as specified under
+`<env>.host.services` in the [application.conf](/src/test/resources/application.conf).
+
+To run the UI performance smoke tests in staging environment, execute the script:
 
 ```bash
-sbt scalafmtCheckAll scalafmtCheck
+./run-tests.sh chrome staging
 ```
 
-Format `*.sbt` and `project/*.scala` files as follows:
+### ZAP tests
+
+The `run_zap_tests.sh` script uses [dast-config-manager](https://github.com/hmrc/dast-config-manager) to run ZAP tests locally using the DAST Docker image.
+
+To run the ZAP tests locally, execute the script:
 
 ```bash
-sbt scalafmtSbt
-```
-
-Format all project files as follows:
-
-```bash
-sbt scalafmtAll
+./run_zap_tests.sh
 ```
 
 ## License

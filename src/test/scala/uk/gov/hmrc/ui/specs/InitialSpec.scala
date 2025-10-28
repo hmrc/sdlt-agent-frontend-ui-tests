@@ -20,7 +20,7 @@ import org.scalatest.{BeforeAndAfterAll, BeforeAndAfterEach, GivenWhenThen}
 import org.scalatest.featurespec.AnyFeatureSpec
 import org.scalatest.verbs.ShouldVerb
 import uk.gov.hmrc.selenium.webdriver.{Browser, ScreenshotOnFailure}
-import uk.gov.hmrc.ui.pages.{AuthWizard, InitialPage}
+import uk.gov.hmrc.ui.pages.{AgentsDetailsPage, AuthWizard, InitialPage}
 import uk.gov.hmrc.ui.util.Users.LoginTypes.HASDIRECT
 import uk.gov.hmrc.ui.util.Users.UserTypes.Organisation
 
@@ -34,13 +34,49 @@ class InitialSpec
     with Browser
     with ScreenshotOnFailure {
 
-  Feature("SDLT Agent frontend Initial Test") {
-    Scenario("Hit the initial start page") {
-      Given("I enter login using the Authority Wizard page")
+  Feature("SDLT Agent frontend Journeys") {
+    Scenario("Hit the Agent Overview page with no agents") {
+      Given("User enters login using the Authority Wizard page")
       AuthWizard.login(HASDIRECT, Organisation)
-      Then("I should be on the initial page")
+      Then("User should be on the initial page")
       InitialPage.isCurrentUrl
 //      InitialPage.verifyPageTitle(InitialPage.pageTitle)
+      Then("User navigates to Agent overview page")
+      AgentsDetailsPage.navigateToPage(
+        "http://localhost:10911/stamp-duty-land-tax-agent/manage-agents/agent-overview?storn=STN002&paginationIndex=1"
+      )
+      Then("User clicks Add Agent button")
+      AgentsDetailsPage.clickAddAgent()
+      InitialPage.verifyPageTitle(InitialPage.pageTitle)
+    }
+
+    Scenario("Hit the Agent Overview page with a list of agents") {
+      Given("User enters login using the Authority Wizard page")
+      AuthWizard.login(HASDIRECT, Organisation)
+      Then("User should be on the initial page")
+      InitialPage.isCurrentUrl
+      //      InitialPage.verifyPageTitle(InitialPage.pageTitle)
+      Then("User navigates to Agent overview page")
+      AgentsDetailsPage.navigateToPage(
+        "http://localhost:10911/stamp-duty-land-tax-agent/manage-agents/agent-overview?storn=STN001&paginationIndex=1"
+      )
+      Then("User clicks Add Agent button")
+      AgentsDetailsPage.clickAddAgent()
+      InitialPage.verifyPageTitle(InitialPage.pageTitle)
+    }
+
+    Scenario("Hit the Remove Agent page") {
+      Given("User enters login using the Authority Wizard page")
+      AuthWizard.login(HASDIRECT, Organisation)
+      Then("User should be on the initial page")
+      InitialPage.isCurrentUrl
+      //      InitialPage.verifyPageTitle(InitialPage.pageTitle)
+      Then("User navigates to Agent overview page")
+      AgentsDetailsPage.navigateToPage(
+        "http://localhost:10911/stamp-duty-land-tax-agent/manage-agents/remove-agent/STN001"
+      )
+      Then("User verifies the remove agent page header")
+      AgentsDetailsPage.verifyPageHeader("Are you sure you want to remove Sunrise Realty?")
     }
   }
 }
