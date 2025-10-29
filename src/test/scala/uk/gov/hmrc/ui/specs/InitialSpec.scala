@@ -38,10 +38,8 @@ class InitialSpec
     Scenario("Hit the Agent Overview page with no agents") {
       Given("User enters login using the Authority Wizard page")
       AuthWizard.login(HASDIRECT, Organisation, "STN002")
-//      Then("User should be on the initial page")
-//      InitialPage.isCurrentUrl
-//      InitialPage.verifyPageTitle(InitialPage.pageTitle)
       Then("User navigates to Agent overview page")
+      AgentsDetailsPage.verifyPageTitle("Manage Agents - Agent Details - Stamp Taxes Online - GOV.UK")
       Then("User clicks Add Agent button")
       AgentsDetailsPage.clickAddAgent()
       InitialPage.verifyPageTitle(InitialPage.pageTitle)
@@ -50,10 +48,8 @@ class InitialSpec
     Scenario("Hit the Agent Overview page with a list of agents") {
       Given("User enters login using the Authority Wizard page")
       AuthWizard.login(HASDIRECT, Organisation, "STN001")
-      Then("User should be on the initial page")
-      InitialPage.isCurrentUrl
-      //      InitialPage.verifyPageTitle(InitialPage.pageTitle)
       Then("User navigates to Agent overview page")
+      AgentsDetailsPage.verifyPageTitle("Manage Agents - Agent Details - Stamp Taxes Online - GOV.UK")
       Then("User clicks Add Agent button")
       AgentsDetailsPage.clickAddAgent()
       InitialPage.verifyPageTitle(InitialPage.pageTitle)
@@ -62,10 +58,9 @@ class InitialSpec
     Scenario("Hit the Remove Agent page") {
       Given("User enters login using the Authority Wizard page")
       AuthWizard.login(HASDIRECT, Organisation, "STN001")
-      Then("User should be on the initial page")
-      InitialPage.isCurrentUrl
-      //      InitialPage.verifyPageTitle(InitialPage.pageTitle)
       Then("User navigates to Agent overview page")
+      AgentsDetailsPage.verifyPageTitle("Manage Agents - Agent Details - Stamp Taxes Online - GOV.UK")
+      Then("User navigates to Remove Agent page")
       AgentsDetailsPage.navigateToPage(
         "http://localhost:10911/stamp-duty-land-tax-agent/manage-agents/remove-agent"
       )

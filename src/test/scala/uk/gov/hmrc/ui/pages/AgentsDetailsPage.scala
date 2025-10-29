@@ -20,11 +20,11 @@ import org.openqa.selenium.{By, JavascriptExecutor}
 
 object AgentsDetailsPage extends BasePage {
 
-  override def pageUrl: String = "/manage-agents/agent-overview?storn=STN001&paginationIndex=1"
+  override def pageUrl: String = "/manage-agents/agent-overview?paginationIndex=1"
   val btnAddAgent: By          = By.xpath("//button[@type = 'submit']")
 
   override def pageTitle: String =
-    "Agent Details - Manage Agents - Stamp Taxes Online - GOV.UK"
+    "Manage Agents - Agent Details - Stamp Taxes Online - GOV.UK"
 
   def clickAddAgent(): Unit = {
     val element = waitForElementToBeClickable(btnAddAgent)
