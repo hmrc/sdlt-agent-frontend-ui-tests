@@ -165,4 +165,8 @@ trait BasePage extends PageObject with Eventually with Matchers with LazyLogging
     )
     println("Actual page header is: " + driver.findElement(Locators.txtHeader).getText)
   }
+
+  def waitForElementToBeClickable(selector: By): WebElement =
+    new WebDriverWait(driver, Duration.ofSeconds(10))
+      .until(ExpectedConditions.elementToBeClickable(selector))
 }

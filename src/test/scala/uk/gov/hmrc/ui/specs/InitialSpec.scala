@@ -37,14 +37,9 @@ class InitialSpec
   Feature("SDLT Agent frontend Journeys") {
     Scenario("Hit the Agent Overview page with no agents") {
       Given("User enters login using the Authority Wizard page")
-      AuthWizard.login(HASDIRECT, Organisation)
-      Then("User should be on the initial page")
-      InitialPage.isCurrentUrl
-//      InitialPage.verifyPageTitle(InitialPage.pageTitle)
+      AuthWizard.login(HASDIRECT, Organisation, "STN002")
       Then("User navigates to Agent overview page")
-      AgentsDetailsPage.navigateToPage(
-        "http://localhost:10911/stamp-duty-land-tax-agent/manage-agents/agent-overview?storn=STN002&paginationIndex=1"
-      )
+      AgentsDetailsPage.verifyPageTitle("Manage Agents - Agent Details - Stamp Taxes Online - GOV.UK")
       Then("User clicks Add Agent button")
       AgentsDetailsPage.clickAddAgent()
       InitialPage.verifyPageTitle(InitialPage.pageTitle)
@@ -52,14 +47,9 @@ class InitialSpec
 
     Scenario("Hit the Agent Overview page with a list of agents") {
       Given("User enters login using the Authority Wizard page")
-      AuthWizard.login(HASDIRECT, Organisation)
-      Then("User should be on the initial page")
-      InitialPage.isCurrentUrl
-      //      InitialPage.verifyPageTitle(InitialPage.pageTitle)
+      AuthWizard.login(HASDIRECT, Organisation, "STN001")
       Then("User navigates to Agent overview page")
-      AgentsDetailsPage.navigateToPage(
-        "http://localhost:10911/stamp-duty-land-tax-agent/manage-agents/agent-overview?storn=STN001&paginationIndex=1"
-      )
+      AgentsDetailsPage.verifyPageTitle("Manage Agents - Agent Details - Stamp Taxes Online - GOV.UK")
       Then("User clicks Add Agent button")
       AgentsDetailsPage.clickAddAgent()
       InitialPage.verifyPageTitle(InitialPage.pageTitle)
@@ -67,13 +57,12 @@ class InitialSpec
 
     Scenario("Hit the Remove Agent page") {
       Given("User enters login using the Authority Wizard page")
-      AuthWizard.login(HASDIRECT, Organisation)
-      Then("User should be on the initial page")
-      InitialPage.isCurrentUrl
-      //      InitialPage.verifyPageTitle(InitialPage.pageTitle)
+      AuthWizard.login(HASDIRECT, Organisation, "STN001")
       Then("User navigates to Agent overview page")
+      AgentsDetailsPage.verifyPageTitle("Manage Agents - Agent Details - Stamp Taxes Online - GOV.UK")
+      Then("User navigates to Remove Agent page")
       AgentsDetailsPage.navigateToPage(
-        "http://localhost:10911/stamp-duty-land-tax-agent/manage-agents/remove-agent/STN001"
+        "http://localhost:10911/stamp-duty-land-tax-agent/manage-agents/remove-agent"
       )
       Then("User verifies the remove agent page header")
       AgentsDetailsPage.verifyPageHeader("Are you sure you want to remove Sunrise Realty?")
