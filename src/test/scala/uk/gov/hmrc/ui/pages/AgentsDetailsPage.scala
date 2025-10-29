@@ -16,17 +16,23 @@
 
 package uk.gov.hmrc.ui.pages
 
-import org.openqa.selenium.By
+import org.openqa.selenium.interactions.Actions
+import org.openqa.selenium.{By, JavascriptExecutor}
 
 object AgentsDetailsPage extends BasePage {
 
   override def pageUrl: String = "/manage-agents/agent-overview?storn=STN001&paginationIndex=1"
-  val btnAddAgent: By          = By.xpath("//a[@role = 'button' and contains(@class, 'govuk-button')]")
+  val btnAddAgent: By          = By.xpath("//button[@type = 'submit']")
 
   override def pageTitle: String =
     "Agent Details - Manage Agents - Stamp Taxes Online - GOV.UK"
 
-  def clickAddAgent(): Unit =
-    click(btnAddAgent)
+  def clickAddAgent(): Unit = {
+    val element = waitForElementToBeClickable(btnAddAgent)
+//    element.click()
+
+    val js = driver.asInstanceOf[JavascriptExecutor]
+    js.executeScript("""document.querySelector("button.govuk-button").click();""")
+  }
 
 }
