@@ -29,7 +29,7 @@ object AuthWizard extends BasePage {
 
   override def pageTitle: String = "auth login stub"
 
-  val url: String = s"${Env.baseUrl}/auth-login-stub/gg-sign-in"
+  val url: String = s"${Env.baseUrl}"
 
   val redirectUrl: By     = By.id("redirectionUrl")
   val affinityGroup: By   = By.id("affinityGroupSelect")
@@ -58,15 +58,18 @@ object AuthWizard extends BasePage {
     Redirect
   }
 
-  def fillInputs(): this.type = {
-    driver.findElement(affinityGroup).sendKeys("Individual")
+  def fillInputs(enrolmentVal: String): this.type = {
+    driver.findElement(affinityGroup).sendKeys("Organisation")
+    driver.findElement(enrolmentKey).sendKeys("IR-SDLT-ORG")
+    driver.findElement(enrolmentId).sendKeys("STORN")
+    driver.findElement(enrolmentValue).sendKeys(enrolmentVal)
     this
   }
 
-  def login(loginType: LoginTypes, userType: UserTypes): Unit = {
+  def login(loginType: LoginTypes, userType: UserTypes, enrolmentVal: String): Unit = {
     AuthWizard.navigateToPage(url)
     sendKeys(redirectUrl, buildRedirectUrl(HASDIRECT, Organisation))
-    fillInputs()
+    fillInputs(enrolmentVal)
     click(btnSubmit)
   }
 
