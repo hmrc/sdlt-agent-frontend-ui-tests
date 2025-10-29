@@ -16,7 +16,6 @@
 
 package uk.gov.hmrc.ui.pages
 
-import org.openqa.selenium.interactions.Actions
 import org.openqa.selenium.{By, JavascriptExecutor}
 
 object AgentsDetailsPage extends BasePage {
@@ -32,7 +31,8 @@ object AgentsDetailsPage extends BasePage {
 //    element.click()
 
     val js = driver.asInstanceOf[JavascriptExecutor]
-    js.executeScript("""document.querySelector("button.govuk-button").click();""")
+    js.executeScript("""
+    const btn = document.querySelector('button.govuk-button');
+    if (btn) { btn.click(); } """)
   }
-
 }
