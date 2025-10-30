@@ -20,7 +20,7 @@ import org.scalatest.{BeforeAndAfterAll, BeforeAndAfterEach, GivenWhenThen}
 import org.scalatest.featurespec.AnyFeatureSpec
 import org.scalatest.verbs.ShouldVerb
 import uk.gov.hmrc.selenium.webdriver.{Browser, ScreenshotOnFailure}
-import uk.gov.hmrc.ui.pages.{AgentsDetailsPage, AuthWizard, InitialPage}
+import uk.gov.hmrc.ui.pages.{AgentsDetailsPage, AuthWizard, InitialPage, RemoveAgentPage}
 import uk.gov.hmrc.ui.util.Users.LoginTypes.HASDIRECT
 import uk.gov.hmrc.ui.util.Users.UserTypes.Organisation
 
@@ -35,7 +35,7 @@ class InitialSpec
     with ScreenshotOnFailure {
 
   Feature("SDLT Agent frontend Journeys") {
-    Scenario("Hit the Agent Overview page with no agents") {
+    Scenario("Add an agent when the Agent Overview page has no agents") {
       Given("User enters login using the Authority Wizard page")
       AuthWizard.login(HASDIRECT, Organisation, "STN002")
       Then("User navigates to Agent overview page")
@@ -45,7 +45,7 @@ class InitialSpec
       InitialPage.verifyPageTitle(InitialPage.pageTitle)
     }
 
-    Scenario("Hit the Agent Overview page with a list of agents") {
+    Scenario("Add an agent when the Agent Overview page has a list of agents") {
       Given("User enters login using the Authority Wizard page")
       AuthWizard.login(HASDIRECT, Organisation, "STN001")
       Then("User navigates to Agent overview page")
@@ -55,17 +55,31 @@ class InitialSpec
       InitialPage.verifyPageTitle(InitialPage.pageTitle)
     }
 
-    Scenario("Hit the Remove Agent page") {
+    Scenario("Remove Agent journey - select No then Yes") {
       Given("User enters login using the Authority Wizard page")
       AuthWizard.login(HASDIRECT, Organisation, "STN001")
       Then("User navigates to Agent overview page")
       AgentsDetailsPage.verifyPageTitle("Manage Agents - Agent Details - Stamp Taxes Online - GOV.UK")
-      Then("User navigates to Remove Agent page")
-      AgentsDetailsPage.navigateToPage(
-        "http://localhost:10911/stamp-duty-land-tax-agent/manage-agents/remove-agent"
-      )
+      Then("User clicks on Remove Agent link on Agent Details page")
+      AgentsDetailsPage.clickRemoveAgent("Harborview Estates")
       Then("User verifies the remove agent page header")
-      AgentsDetailsPage.verifyPageHeader("Are you sure you want to remove Sunrise Realty?")
+      AgentsDetailsPage.verifyPageHeader("Are you sure you want to remove Harborview Estates?")
+      Then("User clicks on No Radio button")
+      RemoveAgentPage.radioButton(RemoveAgentPage.no)
+      Then("User clicks on Continue button")
+      RemoveAgentPage.clickSubmitButton()
+      Then("User navigates to Agent overview page")
+      AgentsDetailsPage.verifyPageTitle("Manage Agents - Agent Details - Stamp Taxes Online - GOV.UK")
+      Then("User clicks on Remove Agent link on Agent Details page")
+      AgentsDetailsPage.clickRemoveAgent("Harborview Estates")
+      Then("User verifies the remove agent page header")
+      AgentsDetailsPage.verifyPageHeader("Are you sure you want to remove Harborview Estates?")
+      Then("User clicks on Yes Radio button")
+      RemoveAgentPage.radioButton(RemoveAgentPage.yes)
+      Then("User clicks on Continue button")
+      RemoveAgentPage.clickSubmitButton()
+      Then("User navigates to Agent overview page")
+      AgentsDetailsPage.verifyPageTitle("Manage Agents - Agent Details - Stamp Taxes Online - GOV.UK")
     }
   }
 }
