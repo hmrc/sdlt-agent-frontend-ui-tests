@@ -21,18 +21,31 @@ import org.openqa.selenium.{By, JavascriptExecutor}
 object AgentsDetailsPage extends BasePage {
 
   override def pageUrl: String = "/manage-agents/agent-overview?paginationIndex=1"
-  val btnAddAgent: By          = By.xpath("//button[@type = 'submit']")
+
+  val btnAddAgent: By = By.xpath("//button[@type = 'submit']")
+  val linkChange: By  = By.linkText("Change")
 
   override def pageTitle: String =
     "Manage Agents - Agent Details - Stamp Taxes Online - GOV.UK"
 
+  def lnkRemoveAgent(agentName: String): By =
+    By.xpath(
+      s"//dt[contains(normalize-space(), '$agentName')]" +
+        "/following-sibling::dd//a[contains(normalize-space(), 'Remove')]"
+    )
+
   def clickAddAgent(): Unit = {
     val element = waitForElementToBeClickable(btnAddAgent)
-//    element.click()
+    //    element.click()
 
     val js = driver.asInstanceOf[JavascriptExecutor]
     js.executeScript("""
     const btn = document.querySelector('button.govuk-button');
     if (btn) { btn.click(); } """)
+  }
+
+  def clickRemoveAgent(agentName: String): Unit = {
+    waitForElementToBeClickable(lnkRemoveAgent(agentName))
+    click(lnkRemoveAgent(agentName))
   }
 }
