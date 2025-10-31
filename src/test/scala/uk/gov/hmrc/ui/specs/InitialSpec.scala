@@ -20,7 +20,7 @@ import org.scalatest.{BeforeAndAfterAll, BeforeAndAfterEach, GivenWhenThen}
 import org.scalatest.featurespec.AnyFeatureSpec
 import org.scalatest.verbs.ShouldVerb
 import uk.gov.hmrc.selenium.webdriver.{Browser, ScreenshotOnFailure}
-import uk.gov.hmrc.ui.pages.{AgentsDetailsPage, AuthWizard, InitialPage, RemoveAgentPage}
+import uk.gov.hmrc.ui.pages.{AgentsDetailsPage, AgentsNamePage, AuthWizard, FindAgentAddressPage, InitialPage, RemoveAgentPage}
 import uk.gov.hmrc.ui.util.Users.LoginTypes.HASDIRECT
 import uk.gov.hmrc.ui.util.Users.UserTypes.Organisation
 
@@ -42,7 +42,20 @@ class InitialSpec
       AgentsDetailsPage.verifyPageTitle("Manage Agents - Agent Details - Stamp Taxes Online - GOV.UK")
       Then("User clicks Add Agent button")
       AgentsDetailsPage.clickAddAgent()
-      InitialPage.verifyPageTitle(InitialPage.pageTitle)
+      AgentsNamePage.verifyPageTitle(AgentsNamePage.pageTitle)
+      AgentsNamePage.enterAgentName("Test Agent")
+//      AgentsNamePage.clickSubmitButton()
+//      Then("User navigates to Find address page")
+//      FindAgentAddressPage.verifyPageTitle(FindAgentAddressPage.pageTitle)
+//      When("User clicks on the link")
+//      FindAgentAddressPage.clickAddressManually()
+//      And("User enters the address manually")
+//      FindAgentAddressPage.verifyPageTitle(FindAgentAddressPage.pageTitleForManualSearch)
+//      FindAgentAddressPage.enterAddressManually("123", "ABC", "TE13 1ES")
+//      Then("User is on the Review screen")
+//      FindAgentAddressPage.verifyPageTitle(FindAgentAddressPage.pageTitleForAddressConfirmPage)
+//      And("User clicks continue")
+//      FindAgentAddressPage.clickSubmitButton()
     }
 
     Scenario("Add an agent when the Agent Overview page has a list of agents") {
@@ -52,7 +65,7 @@ class InitialSpec
       AgentsDetailsPage.verifyPageTitle("Manage Agents - Agent Details - Stamp Taxes Online - GOV.UK")
       Then("User clicks Add Agent button")
       AgentsDetailsPage.clickAddAgent()
-      InitialPage.verifyPageTitle(InitialPage.pageTitle)
+      AgentsNamePage.verifyPageTitle(AgentsNamePage.pageTitle)
     }
 
     Scenario("Remove Agent journey - select No then Yes") {
