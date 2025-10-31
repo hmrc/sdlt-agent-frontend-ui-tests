@@ -16,12 +16,12 @@
 
 package uk.gov.hmrc.ui.pages
 
-import org.openqa.selenium.{By, JavascriptExecutor}
+import org.openqa.selenium.By
 
 object AgentsNamePage extends BasePage {
 
   override def pageUrl: String = "/manage-agents/agent-name"
-    val txtAgentName: By         = By.className("govuk-input")
+  val txtAgentName: By         = By.className("govuk-input")
 
   override def pageTitle: String =
     "Manage agents – What is the agent’s name? – Stamp Taxes Online – GOV.UK - Stamp Taxes Online - GOV.UK"
