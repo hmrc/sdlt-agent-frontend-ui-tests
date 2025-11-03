@@ -21,11 +21,11 @@ import org.openqa.selenium.By
 object AgentContactDetailsPage extends BasePage {
 
   override def pageUrl: String = "manage-agents/contact-details"
-  val txtTelephoneNo: By       = By.id("agentTel")
-  val txtEmailId: By           = By.id("agentEmail")
+  val txtTelephoneNo: By       = By.id("phone")
+  val txtEmailId: By           = By.id("email")
 
   override def pageTitle: String =
-    "Manage agents – What are the agent’s contact details? – Stamp Taxes Online – GOV.UK"
+    "Manage agents – What are the agent’s contact details? - Stamp Taxes Online - GOV.UK"
 
   def enterContactDetails(telephoneNo: String, emailId: String): Unit = {
     input(txtTelephoneNo, telephoneNo)
