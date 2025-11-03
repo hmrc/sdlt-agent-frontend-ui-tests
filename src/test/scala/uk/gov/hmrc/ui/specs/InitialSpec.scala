@@ -20,7 +20,7 @@ import org.scalatest.{BeforeAndAfterAll, BeforeAndAfterEach, GivenWhenThen}
 import org.scalatest.featurespec.AnyFeatureSpec
 import org.scalatest.verbs.ShouldVerb
 import uk.gov.hmrc.selenium.webdriver.{Browser, ScreenshotOnFailure}
-import uk.gov.hmrc.ui.pages.{AgentsDetailsPage, AgentsNamePage, AuthWizard, FindAgentAddressPage, InitialPage, RemoveAgentPage}
+import uk.gov.hmrc.ui.pages.{AgentContactDetailsPage, AgentsDetailsPage, AgentsNamePage, AuthWizard, CheckYourAnswersPage, FindAgentAddressPage, RemoveAgentPage}
 import uk.gov.hmrc.ui.util.Users.LoginTypes.HASDIRECT
 import uk.gov.hmrc.ui.util.Users.UserTypes.Organisation
 
@@ -35,34 +35,43 @@ class InitialSpec
     with ScreenshotOnFailure {
 
   Feature("SDLT Agent frontend Journeys") {
-    Scenario("Add an agent when the Agent Overview page has no agents") {
+    Scenario("Add an agent when the Agent details page has no agents") {
       Given("User enters login using the Authority Wizard page")
       AuthWizard.login(HASDIRECT, Organisation, "STN002")
-      Then("User navigates to Agent overview page")
-      AgentsDetailsPage.verifyPageTitle("Manage Agents - Agent Details - Stamp Taxes Online - GOV.UK")
+      Then("User navigates to Agent details page")
+      AgentsDetailsPage.verifyPageTitle(AgentsDetailsPage.pageTitle)
       Then("User clicks Add Agent button")
       AgentsDetailsPage.clickAddAgent()
       AgentsNamePage.verifyPageTitle(AgentsNamePage.pageTitle)
       AgentsNamePage.enterAgentName("Test Agent")
-//      AgentsNamePage.clickSubmitButton()
-//      Then("User navigates to Find address page")
-//      FindAgentAddressPage.verifyPageTitle(FindAgentAddressPage.pageTitle)
-//      When("User clicks on the link")
-//      FindAgentAddressPage.clickAddressManually()
-//      And("User enters the address manually")
-//      FindAgentAddressPage.verifyPageTitle(FindAgentAddressPage.pageTitleForManualSearch)
-//      FindAgentAddressPage.enterAddressManually("123", "ABC", "TE13 1ES")
-//      Then("User is on the Review screen")
-//      FindAgentAddressPage.verifyPageTitle(FindAgentAddressPage.pageTitleForAddressConfirmPage)
-//      And("User clicks continue")
-//      FindAgentAddressPage.clickSubmitButton()
+      AgentsNamePage.clickSubmitButton()
+      Then("User navigates to Find address page")
+      FindAgentAddressPage.verifyPageTitle(FindAgentAddressPage.pageTitle)
+      When("User clicks on the link to enter address manually")
+      FindAgentAddressPage.clickAddressManually()
+      And("User enters the address manually")
+      FindAgentAddressPage.verifyPageTitle(FindAgentAddressPage.pageTitleForManualSearch)
+      FindAgentAddressPage.enterAddressManually("123", "ABC", "TE13 1ES")
+      Then("User is on the address review screen")
+      FindAgentAddressPage.verifyPageTitle(FindAgentAddressPage.pageTitleForAddressConfirmPage)
+      And("User clicks confirm address button")
+      FindAgentAddressPage.clickSubmitButton()
+      Then("User is navigated to agent contact details page")
+      AgentContactDetailsPage.verifyPageTitle(AgentContactDetailsPage.pageTitle)
+      Then("User enters contact details and continues")
+      AgentContactDetailsPage.enterContactDetails("0123456789", "test@email.com")
+      Then("User is navigated to check your answers page")
+      CheckYourAnswersPage.verifyPageTitle(CheckYourAnswersPage.pageTitle)
+      FindAgentAddressPage.clickSubmitButton()
+      Then("User navigates to Agent details page")
+      AgentsDetailsPage.verifyPageTitle(AgentsDetailsPage.pageTitle)
     }
 
-    Scenario("Add an agent when the Agent Overview page has a list of agents") {
+    Scenario("Add an agent when the Agent details page has a list of agents") {
       Given("User enters login using the Authority Wizard page")
       AuthWizard.login(HASDIRECT, Organisation, "STN001")
-      Then("User navigates to Agent overview page")
-      AgentsDetailsPage.verifyPageTitle("Manage Agents - Agent Details - Stamp Taxes Online - GOV.UK")
+      Then("User navigates to Agent details page")
+      AgentsDetailsPage.verifyPageTitle(AgentsDetailsPage.pageTitle)
       Then("User clicks Add Agent button")
       AgentsDetailsPage.clickAddAgent()
       AgentsNamePage.verifyPageTitle(AgentsNamePage.pageTitle)
@@ -71,9 +80,9 @@ class InitialSpec
     Scenario("Remove Agent journey - select No then Yes") {
       Given("User enters login using the Authority Wizard page")
       AuthWizard.login(HASDIRECT, Organisation, "STN001")
-      Then("User navigates to Agent overview page")
-      AgentsDetailsPage.verifyPageTitle("Manage Agents - Agent Details - Stamp Taxes Online - GOV.UK")
-      Then("User clicks on Remove Agent link on Agent Details page")
+      Then("User navigates to Agent details page")
+      AgentsDetailsPage.verifyPageTitle(AgentsDetailsPage.pageTitle)
+      Then("User clicks on Remove Agent link on Agent details page")
       AgentsDetailsPage.clickRemoveAgent("Harborview Estates")
       Then("User verifies the remove agent page header")
       AgentsDetailsPage.verifyPageHeader("Are you sure you want to remove Harborview Estates?")
@@ -81,9 +90,9 @@ class InitialSpec
       RemoveAgentPage.radioButton(RemoveAgentPage.no)
       Then("User clicks on Continue button")
       RemoveAgentPage.clickSubmitButton()
-      Then("User navigates to Agent overview page")
-      AgentsDetailsPage.verifyPageTitle("Manage Agents - Agent Details - Stamp Taxes Online - GOV.UK")
-      Then("User clicks on Remove Agent link on Agent Details page")
+      Then("User navigates to Agent details page")
+      AgentsDetailsPage.verifyPageTitle(AgentsDetailsPage.pageTitle)
+      Then("User clicks on Remove Agent link on Agent details page")
       AgentsDetailsPage.clickRemoveAgent("Harborview Estates")
       Then("User verifies the remove agent page header")
       AgentsDetailsPage.verifyPageHeader("Are you sure you want to remove Harborview Estates?")
@@ -91,8 +100,8 @@ class InitialSpec
       RemoveAgentPage.radioButton(RemoveAgentPage.yes)
       Then("User clicks on Continue button")
       RemoveAgentPage.clickSubmitButton()
-      Then("User navigates to Agent overview page")
-      AgentsDetailsPage.verifyPageTitle("Manage Agents - Agent Details - Stamp Taxes Online - GOV.UK")
+      Then("User navigates to Agent details page")
+      AgentsDetailsPage.verifyPageTitle(AgentsDetailsPage.pageTitle)
     }
   }
 }
