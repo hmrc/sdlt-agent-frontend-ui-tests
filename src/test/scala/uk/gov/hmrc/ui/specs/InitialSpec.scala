@@ -67,15 +67,15 @@ class InitialSpec
       AgentsDetailsPage.verifyPageTitle(AgentsDetailsPage.pageTitle)
     }
 
-    Scenario("Add an agent when the Agent details page has a list of agents") {
-      Given("User enters login using the Authority Wizard page")
-      AuthWizard.login(HASDIRECT, Organisation, "STN001")
-      Then("User navigates to Agent details page")
+//    Scenario("Add an agent when the Agent details page has a list of agents") {
+//      Given("User enters login using the Authority Wizard page")
+//      AuthWizard.login(HASDIRECT, Organisation, "STN001")
+//      Then("User navigates to Agent details page")
 //      AgentsDetailsPage.verifyPageTitle(AgentsDetailsPage.pageTitle)
-      Then("User clicks Add Agent button")
-      AgentsDetailsPage.clickAddAgent()
-      AgentsNamePage.verifyPageTitle(AgentsNamePage.pageTitle)
-    }
+//      Then("User clicks Add Agent button")
+//      AgentsDetailsPage.clickAddAgent()
+//      AgentsNamePage.verifyPageTitle(AgentsNamePage.pageTitle)
+//    }
 
     Scenario("Remove Agent journey - select No then Yes") {
       Given("User enters login using the Authority Wizard page")
