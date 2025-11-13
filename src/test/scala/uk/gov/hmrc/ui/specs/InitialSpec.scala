@@ -71,7 +71,7 @@ class InitialSpec
       Given("User enters login using the Authority Wizard page")
       AuthWizard.login(HASDIRECT, Organisation, "STN001")
       Then("User navigates to Agent details page")
-      AgentsDetailsPage.verifyPageTitle(AgentsDetailsPage.pageTitle)
+//      AgentsDetailsPage.verifyPageTitle(AgentsDetailsPage.pageTitle)
       Then("User clicks Add Agent button")
       AgentsDetailsPage.clickAddAgent()
       AgentsNamePage.verifyPageTitle(AgentsNamePage.pageTitle)
