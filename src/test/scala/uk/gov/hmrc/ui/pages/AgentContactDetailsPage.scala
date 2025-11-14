@@ -25,7 +25,7 @@ object AgentContactDetailsPage extends BasePage {
   val txtEmailId: By           = By.id("email")
 
   override def pageTitle: String =
-    "Manage agents – What are the agent’s contact details? - Stamp Taxes Online - GOV.UK"
+    "Agent’s contact details – Agent details - Stamp Taxes Online - GOV.UK"
 
   def enterContactDetails(telephoneNo: String, emailId: String): Unit = {
     input(txtTelephoneNo, telephoneNo)

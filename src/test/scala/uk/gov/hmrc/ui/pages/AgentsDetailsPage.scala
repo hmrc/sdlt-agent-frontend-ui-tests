@@ -26,7 +26,7 @@ object AgentsDetailsPage extends BasePage {
   val linkChange: By  = By.linkText("Change")
 
   override def pageTitle: String =
-    "Manage Agents - Agent Details - Stamp Taxes Online - GOV.UK"
+    "Agent overview – Agent details - Stamp Taxes Online - GOV.UK"
 
   def lnkRemoveAgent(agentName: String): By =
     By.xpath(

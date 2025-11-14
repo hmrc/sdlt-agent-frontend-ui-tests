@@ -23,13 +23,13 @@ object FindAgentAddressPage extends BasePage {
   override def pageUrl: String = "manage-agents/enter-address"
 
   override def pageTitle: String =
-    "Find your UK address - Stamp Taxes Online - GOV.UK"
+    "Find your UK address - Find the agent’s address – Agent details - GOV.UK"
 
   val pageTitleForManualSearch: String =
-    "Enter your address - Stamp Taxes Online - GOV.UK"
+    "Enter your address - Find the agent’s address – Agent details - GOV.UK"
 
   val pageTitleForAddressConfirmPage: String =
-    "Review and confirm - Stamp Taxes Online - GOV.UK"
+    "Review and confirm - Find the agent’s address – Agent details - GOV.UK"
 
   def enterPostCode(postCode: String): Unit = {
     input(Locators.txtPostCode, postCode)
