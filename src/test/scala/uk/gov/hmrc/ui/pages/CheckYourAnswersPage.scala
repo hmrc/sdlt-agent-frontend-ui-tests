@@ -21,5 +21,5 @@ object CheckYourAnswersPage extends BasePage {
   override def pageUrl: String = "manage-agents/check-your-answers"
 
   override def pageTitle: String =
-    "Check your answers - Stamp Taxes Online - GOV.UK"
+    "Check your answers – Agent details - Stamp Taxes Online - GOV.UK"
 }
