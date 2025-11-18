@@ -22,7 +22,7 @@ object AgentsDetailsPage extends BasePage {
 
   override def pageUrl: String = "/manage-agents/agent-overview?paginationIndex=1"
 
-  val btnAddAgent: By = By.xpath("//button[@type = 'submit']")
+  val btnAddAgent: By = By.cssSelector("a.govuk-button")
   val linkChange: By  = By.linkText("Change")
 
   override def pageTitle: String =
