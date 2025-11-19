@@ -24,7 +24,7 @@ import uk.gov.hmrc.ui.pages.{AgentContactDetailsPage, AgentsDetailsPage, AgentsN
 import uk.gov.hmrc.ui.util.Users.LoginTypes.HASDIRECT
 import uk.gov.hmrc.ui.util.Users.UserTypes.Organisation
 
-class InitialSpec
+class AddAgentSpec
     extends AnyFeatureSpec
     with BaseSpec
     with GivenWhenThen
@@ -67,15 +67,15 @@ class InitialSpec
       AgentsDetailsPage.verifyPageTitle(AgentsDetailsPage.pageTitle)
     }
 
-//    Scenario("Add an agent when the Agent details page has a list of agents") {
-//      Given("User enters login using the Authority Wizard page")
-//      AuthWizard.login(HASDIRECT, Organisation, "STN001")
-//      Then("User navigates to Agent details page")
-//      AgentsDetailsPage.verifyPageTitle(AgentsDetailsPage.pageTitle)
-//      Then("User clicks Add Agent button")
-//      AgentsDetailsPage.clickAddAgent()
-//      AgentsNamePage.verifyPageTitle(AgentsNamePage.pageTitle)
-//    }
+    Scenario("Add an agent when the Agent details page has a list of agents") {
+      Given("User enters login using the Authority Wizard page")
+      AuthWizard.login(HASDIRECT, Organisation, "STN004")
+      Then("User navigates to Agent details page")
+      AgentsDetailsPage.verifyPageTitle(AgentsDetailsPage.pageTitle)
+      Then("User clicks Add Agent button")
+      AgentsDetailsPage.clickAddAgent()
+      AgentsNamePage.verifyPageTitle(AgentsNamePage.pageTitle)
+    }
 
     Scenario("Remove Agent journey - select No then Yes") {
       Given("User enters login using the Authority Wizard page")

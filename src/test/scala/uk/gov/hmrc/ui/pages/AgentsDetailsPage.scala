@@ -22,7 +22,7 @@ object AgentsDetailsPage extends BasePage {
 
   override def pageUrl: String = "/manage-agents/agent-overview?paginationIndex=1"
 
-  val btnAddAgent: By = By.cssSelector("a.govuk-button")
+  val btnAddAgent: By = By.cssSelector(".govuk-button")
   val linkChange: By  = By.linkText("Change")
 
   override def pageTitle: String =
@@ -36,12 +36,7 @@ object AgentsDetailsPage extends BasePage {
 
   def clickAddAgent(): Unit = {
     val element = waitForElementToBeClickable(btnAddAgent)
-    //    element.click()
-
-    val js = driver.asInstanceOf[JavascriptExecutor]
-    js.executeScript("""
-    const btn = document.querySelector('button.govuk-button');
-    if (btn) { btn.click(); } """)
+    element.click()
   }
 
   def clickRemoveAgent(agentName: String): Unit = {
