@@ -43,7 +43,7 @@ class AddAgentSpec
       And("User clicks Add Agent button")
       AgentsDetailsPage.clickAddAgent()
       AgentsNamePage.verifyPageTitle(AgentsNamePage.pageTitle)
-      AgentsNamePage.enterAgentName("Test Agent")
+      AgentsNamePage.enterAgentName("Test Agent. Rugby")
       AgentsNamePage.clickSubmitButton()
       And("User navigates to Find address page")
       FindAgentAddressPage.verifyPageTitle(FindAgentAddressPage.pageTitle)
@@ -62,15 +62,17 @@ class AddAgentSpec
       AgentContactDetailsPage.enterContactDetails("0123456789", "test@email.com")
       Then("User is navigated to check your answers page")
       CheckYourAnswersPage.verifyPageTitle(CheckYourAnswersPage.pageTitle)
-      FindAgentAddressPage.clickSubmitButton()
+      CheckYourAnswersPage.clickSubmitButton()
       And("User navigates to Agent details page")
       AgentsDetailsPage.verifyPageTitle(AgentsDetailsPage.pageTitle)
+      And("User verifies success message is displayed")
+      AgentsDetailsPage.verifySuccessBannerMessage("You have added Test Agent. Rugby")
     }
 
     Scenario("Add an agent when the Agent details page has a list of agents") {
       Given("User enters login using the Authority Wizard page")
       AuthWizard.login(HASDIRECT, Organisation, "STN004")
-      Then("User navigates to Agent details page")
+      When("User navigates to Agent details page")
       AgentsDetailsPage.verifyPageTitle(AgentsDetailsPage.pageTitle)
       Then("User clicks Add Agent button")
       AgentsDetailsPage.clickAddAgent()

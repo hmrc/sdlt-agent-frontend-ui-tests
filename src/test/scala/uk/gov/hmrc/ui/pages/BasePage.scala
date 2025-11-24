@@ -57,6 +57,7 @@ trait BasePage extends PageObject with Eventually with Matchers with LazyLogging
     val txtAddress1: By     = By.ById("line1")
     val txtTown: By         = By.ById("town")
     val txtAddressPostCode  = By.ById("postcode")
+    val banner              = ".govuk-notification-banner"
   }
 
   def pageUrl: String
@@ -174,4 +175,33 @@ trait BasePage extends PageObject with Eventually with Matchers with LazyLogging
   def waitForElementToBeClickable(selector: By): WebElement =
     new WebDriverWait(driver, Duration.ofSeconds(10))
       .until(ExpectedConditions.elementToBeClickable(selector))
+
+  def verifySuccessBannerMessage(successMessage: String): Unit = {
+
+    // Banner element
+    val bannerEle     = driver.findElement(By.cssSelector(Locators.banner))
+    val bannerClasses = bannerEle.getAttribute("class")
+
+    // Validate success class
+    assert(
+      bannerClasses.contains("govuk-notification-banner--success"),
+      s"Expected success banner, but class was: $bannerClasses"
+    )
+
+    // Title text "Success"
+    val title     = bannerEle.findElement(By.id("govuk-notification-banner-title"))
+    val titleText = title.getText.trim
+    assert(
+      titleText == "Success",
+      s"Expected title 'Success', but found: '$titleText'"
+    )
+
+    // Main heading
+    val heading     = bannerEle.findElement(By.cssSelector(".govuk-notification-banner__heading"))
+    val headingText = heading.getText.trim
+    assert(
+      headingText == successMessage,
+      s"Unexpected banner heading: '$headingText'"
+    )
+  }
 }

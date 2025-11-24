@@ -16,7 +16,7 @@
 
 package uk.gov.hmrc.ui.pages
 
-import org.openqa.selenium.{By, JavascriptExecutor}
+import org.openqa.selenium.By
 
 object AgentsDetailsPage extends BasePage {
 
