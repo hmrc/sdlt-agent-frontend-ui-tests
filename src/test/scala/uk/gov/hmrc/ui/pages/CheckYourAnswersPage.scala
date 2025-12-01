@@ -16,10 +16,42 @@
 
 package uk.gov.hmrc.ui.pages
 
+import org.openqa.selenium.By
+
 object CheckYourAnswersPage extends BasePage {
 
   override def pageUrl: String = "manage-agents/check-your-answers"
 
+  val linkChangeAgentName: By                   = By.xpath("//a[@id='change-agent-name']")
+  val linkChangeAgentAddress: By                = By.xpath("//a[@id='change-agent-address']")
+  val linkChangeAgentContactTelephoneNumber: By = By.xpath(
+    "//dt[contains(normalize-space(), 'Contact telephone number')]/following-sibling::dd//a[contains(normalize-space(), 'Change')]"
+  )
+  val linkChangeAgentContactEmail: By           = By.xpath(
+    "//dt[contains(normalize-space(), 'Contact email')]/following-sibling::dd//a[contains(normalize-space(), 'Change')]"
+  )
+
   override def pageTitle: String =
     "Check your answers – Agent details - Stamp Taxes Online - GOV.UK"
+
+  def clickChangeAgentName(): Unit = {
+    val element = waitForElementToBeClickable(linkChangeAgentName)
+    element.click()
+  }
+
+  def clickChangeAgentAddress(): Unit = {
+    val element = waitForElementToBeClickable(linkChangeAgentAddress)
+    element.click()
+  }
+
+  def clickChangeAgentContactTelephoneNumber(): Unit = {
+    val element = waitForElementToBeClickable(linkChangeAgentContactTelephoneNumber)
+    element.click()
+  }
+
+  def clickChangeAgentContactEmail(): Unit = {
+    val element = waitForElementToBeClickable(linkChangeAgentContactEmail)
+    element.click()
+  }
+
 }

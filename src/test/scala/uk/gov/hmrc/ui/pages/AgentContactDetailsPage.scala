@@ -16,7 +16,9 @@
 
 package uk.gov.hmrc.ui.pages
 
-import org.openqa.selenium.By
+import org.openqa.selenium.{By, WebElement}
+import org.openqa.selenium.support.ui.{ExpectedConditions, WebDriverWait}
+import java.time.Duration
 
 object AgentContactDetailsPage extends BasePage {
 
@@ -30,6 +32,91 @@ object AgentContactDetailsPage extends BasePage {
   def enterContactDetails(telephoneNo: String, emailId: String): Unit = {
     input(txtTelephoneNo, telephoneNo)
     input(txtEmailId, emailId)
+    clickSubmitButton()
+  }
+
+  private def getFieldValue(selector: By, fieldName: String): String = {
+    val element = waitForVisibilityOfElement(selector)
+    val value   = element.getAttribute("value")
+    if (value == null) {
+      ""
+    } else {
+      value
+    }
+  }
+
+  def getExistingTelephoneNumber(): String = {
+    waitForPage()
+    Thread.sleep(1000)
+    waitForVisibilityOfElement(txtTelephoneNo)
+    waitForVisibilityOfElement(txtEmailId)
+
+    val value = getFieldValue(txtTelephoneNo, "telephone number")
+    if (value.isEmpty) {
+      Thread.sleep(1000)
+      val retryValue = getFieldValue(txtTelephoneNo, "telephone number")
+      if (retryValue.isEmpty) {
+        throw new RuntimeException(
+          s"Existing telephone number not found in change mode. Field value: '$retryValue'"
+        )
+      }
+      retryValue
+    } else {
+      value
+    }
+  }
+
+  def getExistingEmail(): String = {
+    waitForPage()
+    Thread.sleep(1000)
+    waitForVisibilityOfElement(txtTelephoneNo)
+    waitForVisibilityOfElement(txtEmailId)
+
+    val value = getFieldValue(txtEmailId, "email")
+    if (value.isEmpty) {
+      Thread.sleep(1000)
+      val retryValue = getFieldValue(txtEmailId, "email")
+      if (retryValue.isEmpty) {
+        throw new RuntimeException(
+          s"Existing email not found in change mode. Field value: '$retryValue'"
+        )
+      }
+      retryValue
+    } else {
+      value
+    }
+  }
+
+  def updateTelephoneNumber(newTelephoneNo: String): Unit = {
+    waitForPage()
+    Thread.sleep(1000)
+    val existingEmail = getExistingEmail()
+    if (existingEmail.isEmpty) {
+      throw new RuntimeException(
+        s"Cannot update telephone number - existing email is empty. This suggests the form is not in change mode or not pre-filled."
+      )
+    }
+
+    val phoneElement = waitForVisibilityOfElement(txtTelephoneNo)
+    phoneElement.clear()
+    phoneElement.sendKeys(newTelephoneNo)
+    clickSubmitButton()
+  }
+
+  def updateEmail(newEmail: String): Unit = {
+    waitForPage()
+    Thread.sleep(1000)
+
+    val existingPhone = getExistingTelephoneNumber()
+    if (existingPhone.isEmpty) {
+      throw new RuntimeException(
+        s"Cannot update email - existing telephone number is empty. This suggests the form is not in change mode or not pre-filled."
+      )
+    }
+
+    val emailElement = waitForVisibilityOfElement(txtEmailId)
+    emailElement.clear()
+    emailElement.sendKeys(newEmail)
     clickSubmitButton()
   }
 
