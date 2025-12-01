@@ -108,5 +108,44 @@ class AddAgentSpec
       Then("User navigates to Agent details page")
       AgentsDetailsPage.verifyPageTitle(AgentsDetailsPage.pageTitle)
     }
+
+  }
+
+  Feature("Change Agent journey") {
+    Scenario("Change Agent details for an existing agent") {
+      Given("User enters login using the Authority Wizard page")
+      AuthWizard.login(HASDIRECT, Organisation, "STN004")
+      Then("User navigates to Agent details page")
+      AgentsDetailsPage.verifyPageTitle(AgentsDetailsPage.pageTitle)
+      Then("User clicks on Change Agent link for a specific agent on Agent details page")
+      AgentsDetailsPage.clickChangeAgent("Thamesbridge Legal Group")
+      Then("User is navigated to Check your answers page")
+      CheckYourAnswersPage.verifyPageTitle(CheckYourAnswersPage.pageTitle)
+      Then("User clicks on Change Agent Name link")
+      CheckYourAnswersPage.clickChangeAgentName()
+      Then("User is navigated to Agent name page")
+      AgentsNamePage.verifyPageTitle(AgentsNamePage.pageTitle)
+      When("User enters new agent name and clicks on Submit button")
+      AgentsNamePage.enterAgentName("Updated Test Agent")
+      AgentsNamePage.clickSubmitButton()
+      Then("User is navigated to Check your answers page")
+      CheckYourAnswersPage.verifyPageTitle(CheckYourAnswersPage.pageTitle)
+      Then("User clicks on Change link for Contact telephone number")
+      CheckYourAnswersPage.clickChangeAgentContactTelephoneNumber()
+      Then("User is navigated to Agent contact details page")
+      AgentContactDetailsPage.verifyPageTitle(AgentContactDetailsPage.pageTitle)
+      When("User enters new contact telephone number and clicks on Submit button")
+      AgentContactDetailsPage.updateTelephoneNumber("0987654321")
+      Then("User is navigated to Check your answers page")
+      CheckYourAnswersPage.verifyPageTitle(CheckYourAnswersPage.pageTitle)
+      When("User clicks on Change link for Contact email address")
+      CheckYourAnswersPage.clickChangeAgentContactEmail()
+      Then("User is navigated to Agent contact details page")
+      AgentContactDetailsPage.verifyPageTitle(AgentContactDetailsPage.pageTitle)
+      When("User enters new contact email address and clicks on Submit button")
+      AgentContactDetailsPage.updateEmail("testemail@test.com")
+      Then("User is navigated to Check your answers page")
+      CheckYourAnswersPage.verifyPageTitle(CheckYourAnswersPage.pageTitle)
+    }
   }
 }
