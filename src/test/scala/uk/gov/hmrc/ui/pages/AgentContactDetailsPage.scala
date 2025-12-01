@@ -47,13 +47,11 @@ object AgentContactDetailsPage extends BasePage {
 
   def getExistingTelephoneNumber(): String = {
     waitForPage()
-    Thread.sleep(1000)
     waitForVisibilityOfElement(txtTelephoneNo)
     waitForVisibilityOfElement(txtEmailId)
 
     val value = getFieldValue(txtTelephoneNo, "telephone number")
     if (value.isEmpty) {
-      Thread.sleep(1000)
       val retryValue = getFieldValue(txtTelephoneNo, "telephone number")
       if (retryValue.isEmpty) {
         throw new RuntimeException(
@@ -68,13 +66,11 @@ object AgentContactDetailsPage extends BasePage {
 
   def getExistingEmail(): String = {
     waitForPage()
-    Thread.sleep(1000)
     waitForVisibilityOfElement(txtTelephoneNo)
     waitForVisibilityOfElement(txtEmailId)
 
     val value = getFieldValue(txtEmailId, "email")
     if (value.isEmpty) {
-      Thread.sleep(1000)
       val retryValue = getFieldValue(txtEmailId, "email")
       if (retryValue.isEmpty) {
         throw new RuntimeException(
@@ -89,7 +85,6 @@ object AgentContactDetailsPage extends BasePage {
 
   def updateTelephoneNumber(newTelephoneNo: String): Unit = {
     waitForPage()
-    Thread.sleep(1000)
     val existingEmail = getExistingEmail()
     if (existingEmail.isEmpty) {
       throw new RuntimeException(
@@ -105,7 +100,6 @@ object AgentContactDetailsPage extends BasePage {
 
   def updateEmail(newEmail: String): Unit = {
     waitForPage()
-    Thread.sleep(1000)
 
     val existingPhone = getExistingTelephoneNumber()
     if (existingPhone.isEmpty) {
