@@ -37,7 +37,7 @@ class AddAgentSpec
   Feature("SDLT Agent frontend Journeys") {
     Scenario("Add an agent when the Agent details page has no agents") {
       Given("User enters login using the Authority Wizard page")
-      AuthWizard.login(HASDIRECT, Organisation, "STN002")
+      AuthWizard.login(HASDIRECT, Organisation, "IR-SDLT-ORG", "STN002")
       When("User navigates to Agent details page")
       AgentsDetailsPage.verifyPageTitle(AgentsDetailsPage.pageTitle)
       And("User clicks Add Agent button")
@@ -71,7 +71,7 @@ class AddAgentSpec
 
     Scenario("Add an agent when the Agent details page has a list of agents") {
       Given("User enters login using the Authority Wizard page")
-      AuthWizard.login(HASDIRECT, Organisation, "STN004")
+      AuthWizard.login(HASDIRECT, Organisation, "IR-SDLT-ORG", "STN004")
       When("User navigates to Agent details page")
       AgentsDetailsPage.verifyPageTitle(AgentsDetailsPage.pageTitle)
       Then("User clicks Add Agent button")
@@ -81,7 +81,7 @@ class AddAgentSpec
 
     Scenario("Remove Agent journey - select No then Yes") {
       Given("User enters login using the Authority Wizard page")
-      AuthWizard.login(HASDIRECT, Organisation, "STN001")
+      AuthWizard.login(HASDIRECT, Organisation, "IR-SDLT-ORG", "STN001")
       Then("User navigates to Agent details page")
       AgentsDetailsPage.verifyPageTitle(AgentsDetailsPage.pageTitle)
       Then("User clicks on Remove Agent link on Agent details page")
@@ -107,14 +107,14 @@ class AddAgentSpec
       RemoveAgentPage.clickSubmitButton()
       Then("User navigates to Agent details page")
       AgentsDetailsPage.verifyPageTitle(AgentsDetailsPage.pageTitle)
+      AgentsDetailsPage.verifySuccessBannerMessage("You have removed Harborview Estates")
     }
-
   }
 
   Feature("Change Agent journey") {
     Scenario("Change Agent details for an existing agent") {
       Given("User enters login using the Authority Wizard page")
-      AuthWizard.login(HASDIRECT, Organisation, "STN004")
+      AuthWizard.login(HASDIRECT, Organisation, "IR-SDLT-ORG", "STN004")
       Then("User navigates to Agent details page")
       AgentsDetailsPage.verifyPageTitle(AgentsDetailsPage.pageTitle)
       Then("User clicks on Change Agent link for a specific agent on Agent details page")

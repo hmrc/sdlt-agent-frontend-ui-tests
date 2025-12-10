@@ -16,9 +16,7 @@
 
 package uk.gov.hmrc.ui.pages
 
-import org.openqa.selenium.{By, WebElement}
-import org.openqa.selenium.support.ui.{ExpectedConditions, WebDriverWait}
-import java.time.Duration
+import org.openqa.selenium.By
 
 object AgentContactDetailsPage extends BasePage {
 
@@ -113,5 +111,4 @@ object AgentContactDetailsPage extends BasePage {
     emailElement.sendKeys(newEmail)
     clickSubmitButton()
   }
-
 }

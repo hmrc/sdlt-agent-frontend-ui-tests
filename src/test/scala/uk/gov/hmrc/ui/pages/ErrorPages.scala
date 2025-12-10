@@ -14,13 +14,16 @@
  * limitations under the License.
  */
 
-package uk.gov.hmrc.ui.util
+package uk.gov.hmrc.ui.pages
 
-object Urls extends Enumeration {
-  val LOCAL   =
-    "http://localhost:9949/auth-login-stub/gg-sign-in?continue=http://localhost:10911/stamp-duty-land-tax-agent"
-  val QA      = "https://www.qa.tax.service.gov.uk/auth-login-stub/gg-sign-in"
-  val DEV     = "https://www.development.tax.service.gov.uk"
-  val STAGING = "https://www.staging.tax.service.gov.uk/auth-login-stub/gg-sign-in"
+import org.openqa.selenium.By
 
+object AccessDeniedPage extends BasePage {
+
+  override def pageUrl: String = "/access-denied"
+
+  val continueToAccountLinkText: By = By.linkText("Continue to your account")
+
+  override def pageTitle: String =
+    "Sorry, there is a problem with the service - Stamp Taxes Online - GOV.UK"
 }
