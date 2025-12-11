@@ -56,7 +56,7 @@ class ErrorHandlingSpec
     Scenario("Display error page when user select individual in affinity group at a glance page") {
       Given("User enters login using the Authority Wizard page")
       AuthWizard.loginAsIndividual(HASDIRECT, Individual)
-      Then("User should be navigated to the home page")
+      Then("User should be navigated to the error page")
       AccessDeniedPage.verifyPageTitle(UnauthorisedIndividualErrorPage.pageTitle)
     }
   }
