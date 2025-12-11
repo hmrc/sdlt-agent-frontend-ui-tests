@@ -35,3 +35,11 @@ object UnauthorisedIndividualErrorPage extends BasePage {
   val pageTitle: String =
     "Sorry, there is a problem with this service - Stamp Taxes Online - GOV.UK"
 }
+
+object PageNotFound extends BasePage {
+
+  val pageUrl: String = "/page-not-found"
+
+  val pageTitle: String =
+    "Page not found - Stamp Taxes Online - GOV.UK"
+}

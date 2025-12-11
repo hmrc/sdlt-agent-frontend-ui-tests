@@ -20,7 +20,7 @@ import org.scalatest.{BeforeAndAfterAll, BeforeAndAfterEach, GivenWhenThen}
 import org.scalatest.featurespec.AnyFeatureSpec
 import org.scalatest.verbs.ShouldVerb
 import uk.gov.hmrc.selenium.webdriver.{Browser, ScreenshotOnFailure}
-import uk.gov.hmrc.ui.pages.{AccessDeniedPage, AgentsDetailsPage, AuthWizard, UnauthorisedIndividualErrorPage}
+import uk.gov.hmrc.ui.pages.{AccessDeniedPage, AgentsDetailsPage, AuthWizard, PageNotFound, UnauthorisedIndividualErrorPage}
 import uk.gov.hmrc.ui.util.Users.LoginTypes.HASDIRECT
 import uk.gov.hmrc.ui.util.Users.UserTypes.Organisation
 import uk.gov.hmrc.ui.util.Users.UserTypes.Individual
@@ -36,14 +36,6 @@ class ErrorHandlingSpec
     with ScreenshotOnFailure {
 
   Feature("SDLT Management frontend error handling") {
-    //    Scenario("Display Page not found for invalid Management details URL") {
-    //      Given("User enters login using the Authority Wizard page")
-    //      AuthWizard.login(HASDIRECT, Organisation, "STN001")
-    //      Then("User should be navigated to the home page")
-    //      .verifyPageTitle(HomePage.pageTitle)
-    //
-    //    }
-
     Scenario("Display Access denied page when user tries to access management service without enrolment") {
       Given("User enters login using the Authority Wizard page")
       AuthWizard.login(HASDIRECT, Organisation, "", "STN001")
@@ -58,6 +50,16 @@ class ErrorHandlingSpec
       AuthWizard.loginAsIndividual(HASDIRECT, Individual)
       Then("User should be navigated to the error page")
       AccessDeniedPage.verifyPageTitle(UnauthorisedIndividualErrorPage.pageTitle)
+    }
+
+    Scenario("Display Page not found when user tries to enter invalid Url") {
+      Given("User enters login using the Authority Wizard page")
+      AuthWizard.login(HASDIRECT, Organisation, "", "STN001")
+      PageNotFound.navigateToPage(
+        "http://localhost:10911/stamp-duty-land-tax-agent1"
+      )
+      Then("User should be navigated to Page not Found error screen")
+      PageNotFound.verifyPageTitle(PageNotFound.pageTitle)
     }
   }
 }
