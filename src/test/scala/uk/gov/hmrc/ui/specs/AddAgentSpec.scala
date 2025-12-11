@@ -20,7 +20,7 @@ import org.scalatest.{BeforeAndAfterAll, BeforeAndAfterEach, GivenWhenThen}
 import org.scalatest.featurespec.AnyFeatureSpec
 import org.scalatest.verbs.ShouldVerb
 import uk.gov.hmrc.selenium.webdriver.{Browser, ScreenshotOnFailure}
-import uk.gov.hmrc.ui.pages.{AgentContactDetailsPage, AgentsDetailsPage, AgentsNamePage, AuthWizard, CheckYourAnswersPage, FindAgentAddressPage, RemoveAgentPage}
+import uk.gov.hmrc.ui.pages.{AgentContactDetailsPage, AgentsDetailsPage, AgentsNamePage, AuthWizard, CheckYourAnswersPage, DoYouWantToAddContactDetailsPage, FindAgentAddressPage, RemoveAgentPage}
 import uk.gov.hmrc.ui.util.Users.LoginTypes.HASDIRECT
 import uk.gov.hmrc.ui.util.Users.UserTypes.Organisation
 
@@ -56,6 +56,11 @@ class AddAgentSpec
       FindAgentAddressPage.verifyPageTitle(FindAgentAddressPage.pageTitleForAddressConfirmPage)
       And("User clicks confirm address button")
       FindAgentAddressPage.clickSubmitButton()
+      And("User is navigated to do you want to add contact details page")
+      DoYouWantToAddContactDetailsPage.verifyPageTitle(DoYouWantToAddContactDetailsPage.pageTitle)
+      And("User selects Yes to add contact details")
+      DoYouWantToAddContactDetailsPage.radioButton(DoYouWantToAddContactDetailsPage.yes)
+      DoYouWantToAddContactDetailsPage.clickSubmitButton()
       And("User is navigated to agent contact details page")
       AgentContactDetailsPage.verifyPageTitle(AgentContactDetailsPage.pageTitle)
       And("User enters contact details and continues")
@@ -130,7 +135,7 @@ class AddAgentSpec
       AgentsNamePage.clickSubmitButton()
       Then("User is navigated to Check your answers page")
       CheckYourAnswersPage.verifyPageTitle(CheckYourAnswersPage.pageTitle)
-      Then("User clicks on Change link for Contact telephone number")
+      When("User clicks on Change link for Contact telephone number")
       CheckYourAnswersPage.clickChangeAgentContactTelephoneNumber()
       Then("User is navigated to Agent contact details page")
       AgentContactDetailsPage.verifyPageTitle(AgentContactDetailsPage.pageTitle)
