@@ -27,3 +27,11 @@ object AccessDeniedPage extends BasePage {
   override def pageTitle: String =
     "Sorry, there is a problem with the service - Stamp Taxes Online - GOV.UK"
 }
+
+object UnauthorisedIndividualErrorPage extends BasePage {
+
+  val pageUrl: String = "unauthorised/individual"
+
+  val pageTitle: String =
+    "Sorry, there is a problem with this service - Stamp Taxes Online - GOV.UK"
+}

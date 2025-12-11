@@ -21,6 +21,7 @@ import uk.gov.hmrc.ui.pages.AuthWizard.{click, sendKeys}
 import uk.gov.hmrc.ui.util.Env
 import uk.gov.hmrc.ui.util.Users.LoginTypes.HASDIRECT
 import uk.gov.hmrc.ui.util.Users.UserTypes.Organisation
+import uk.gov.hmrc.ui.util.Users.UserTypes.Individual
 import uk.gov.hmrc.ui.util.Users.{LoginTypes, UserTypes}
 
 object AuthWizard extends BasePage {
@@ -70,6 +71,13 @@ object AuthWizard extends BasePage {
     AuthWizard.navigateToPage(url)
     sendKeys(redirectUrl, buildRedirectUrl(HASDIRECT, Organisation))
     fillInputs(enrolmentKeyVal, enrolmentVal)
+    click(btnSubmit)
+  }
+
+  def loginAsIndividual(loginType: LoginTypes, userType: UserTypes): Unit = {
+    AuthWizard.navigateToPage(url)
+    sendKeys(redirectUrl, buildRedirectUrl(HASDIRECT, Individual))
+    driver.findElement(affinityGroup).sendKeys("Individual")
     click(btnSubmit)
   }
 }
