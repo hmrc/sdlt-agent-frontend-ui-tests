@@ -5,7 +5,6 @@ target
 lib_managed
 tmp
 .history
-.vscode/
 dist
 /.bsp
 /.idea
