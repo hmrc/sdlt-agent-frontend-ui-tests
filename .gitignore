@@ -5,8 +5,6 @@ target
 lib_managed
 tmp
 .history
-.bloop/
-.metals/
 .vscode/
 dist
 /.bsp
