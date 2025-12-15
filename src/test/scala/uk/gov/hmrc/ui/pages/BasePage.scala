@@ -115,7 +115,6 @@ trait BasePage extends PageObject with Eventually with Matchers with LazyLogging
   def isCurrentUrl: Boolean          = getCurrentUrlInBrowser.contains(pageUrl)
   def getCurrentUrlInBrowser: String = driver.getCurrentUrl
   def getPageTitle: String           = driver.getTitle
-  
 
   /** Wait for page to load */
   def waitForPage(): Unit = fluentWait.until(ExpectedConditions.presenceOfElementLocated(By.tagName("footer")))
