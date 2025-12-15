@@ -58,7 +58,7 @@ trait BasePage extends PageObject with Eventually with Matchers with LazyLogging
     val txtTown: By         = By.ById("town")
     val txtAddressPostCode  = By.ById("postcode")
     val banner              = ".govuk-notification-banner"
-    val signOut             = ".hmrc-sign-out-nav"
+    val signOut            = ".hmrc-sign-out-nav"
   }
 
   def pageUrl: String
