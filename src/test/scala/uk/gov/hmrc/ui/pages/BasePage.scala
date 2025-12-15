@@ -58,6 +58,7 @@ trait BasePage extends PageObject with Eventually with Matchers with LazyLogging
     val txtTown: By         = By.ById("town")
     val txtAddressPostCode  = By.ById("postcode")
     val banner              = ".govuk-notification-banner"
+    val signOut             = ".hmrc-sign-out-nav"
   }
 
   def pageUrl: String
@@ -113,6 +114,7 @@ trait BasePage extends PageObject with Eventually with Matchers with LazyLogging
   def isCurrentUrl: Boolean          = getCurrentUrlInBrowser.contains(pageUrl)
   def getCurrentUrlInBrowser: String = driver.getCurrentUrl
   def getPageTitle: String           = driver.getTitle
+  def signOutLink(): Unit       = click(By.cssSelector(Locators.signOut))
 
   /** Wait for page to load */
   def waitForPage(): Unit = fluentWait.until(ExpectedConditions.presenceOfElementLocated(By.tagName("footer")))

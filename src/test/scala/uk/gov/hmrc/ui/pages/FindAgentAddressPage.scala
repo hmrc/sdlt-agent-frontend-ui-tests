@@ -44,4 +44,8 @@ object FindAgentAddressPage extends BasePage {
     input(Locators.txtAddressPostCode, addressPostcode)
     clickSubmitButton()
   }
+
+val feedBackPageForAddress: String =
+    "Send your feedback – Contact HMRC – GOV.UK"
+
 }

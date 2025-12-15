@@ -151,6 +151,11 @@ class AddAgentSpec
       AgentContactDetailsPage.updateEmail("testemail@test.com")
       Then("User is navigated to Check your answers page")
       CheckYourAnswersPage.verifyPageTitle(CheckYourAnswersPage.pageTitle)
+      When("User clicks on Change Address for a specific agent on Agent details page")
+      CheckYourAnswersPage.clickChangeAgentAddress()
+      Then("User is navigated to Check Address page")
+      AgentsDetailsPage.signOutLink()
+      FindAgentAddressPage.verifyPageTitle(FindAgentAddressPage.feedBackPageForAddress)
     }
   }
 }
