@@ -45,7 +45,6 @@ object FindAgentAddressPage extends BasePage {
     clickSubmitButton()
   }
 
-val feedBackPageForAddress: String =
+  val feedBackPageForAddress: String =
     "Send your feedback – Contact HMRC – GOV.UK"
-
 }

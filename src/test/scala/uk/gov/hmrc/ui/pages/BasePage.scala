@@ -104,6 +104,7 @@ trait BasePage extends PageObject with Eventually with Matchers with LazyLogging
   def acceptAndContinue(): Unit = click(By.cssSelector(Locators.btnContinue))
   def header(): Unit            = click(By.cssSelector(Locators.lnkHeader))
   def removeFile(): Unit        = click(By.cssSelector(Locators.lnkRemoveFile))
+  def signOutLink(): Unit       = click(By.cssSelector(Locators.signOut))
 
   /** Navigation methods */
   def navigateToPage(url: String): Unit = driver.navigate().to(url)
@@ -114,7 +115,7 @@ trait BasePage extends PageObject with Eventually with Matchers with LazyLogging
   def isCurrentUrl: Boolean          = getCurrentUrlInBrowser.contains(pageUrl)
   def getCurrentUrlInBrowser: String = driver.getCurrentUrl
   def getPageTitle: String           = driver.getTitle
-  def signOutLink(): Unit       = click(By.cssSelector(Locators.signOut))
+  
 
   /** Wait for page to load */
   def waitForPage(): Unit = fluentWait.until(ExpectedConditions.presenceOfElementLocated(By.tagName("footer")))
