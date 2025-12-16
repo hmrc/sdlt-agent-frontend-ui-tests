@@ -20,7 +20,7 @@ import org.scalatest.{BeforeAndAfterAll, BeforeAndAfterEach, GivenWhenThen}
 import org.scalatest.featurespec.AnyFeatureSpec
 import org.scalatest.verbs.ShouldVerb
 import uk.gov.hmrc.selenium.webdriver.{Browser, ScreenshotOnFailure}
-import uk.gov.hmrc.ui.pages.{AgentContactDetailsPage, AgentsDetailsPage, AgentsNamePage, AuthWizard, CheckYourAnswersPage, DoYouWantToAddContactDetailsPage, FindAgentAddressPage, RemoveAgentPage}
+import uk.gov.hmrc.ui.pages.{AgentContactDetailsPage, AgentsDetailsPage, AgentsNamePage, AuthWizard, CheckYourAnswersPage, DoYouWantToAddContactDetailsPage, FeedBackPage, FindAgentAddressPage, RemoveAgentPage}
 import uk.gov.hmrc.ui.util.Users.LoginTypes.HASDIRECT
 import uk.gov.hmrc.ui.util.Users.UserTypes.Organisation
 
@@ -151,6 +151,11 @@ class AddAgentSpec
       AgentContactDetailsPage.updateEmail("testemail@test.com")
       Then("User is navigated to Check your answers page")
       CheckYourAnswersPage.verifyPageTitle(CheckYourAnswersPage.pageTitle)
+      When("User clicks on Change Address for a specific agent on Agent details page")
+      CheckYourAnswersPage.clickChangeAgentAddress()
+      Then("User is navigated to Check Address page")
+      AgentsDetailsPage.signOutLink()
+      FeedBackPage.verifyPageTitle(FeedBackPage.pageTitle)
     }
   }
 }
