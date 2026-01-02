@@ -58,7 +58,7 @@ trait BasePage extends PageObject with Eventually with Matchers with LazyLogging
     val txtTown: By         = By.ById("town")
     val txtAddressPostCode  = By.ById("postcode")
     val banner              = ".govuk-notification-banner"
-    val signOut             = ".hmrc-sign-out-nav"
+    val signOut             = "Sign out"
   }
 
   def pageUrl: String
@@ -104,7 +104,7 @@ trait BasePage extends PageObject with Eventually with Matchers with LazyLogging
   def acceptAndContinue(): Unit = click(By.cssSelector(Locators.btnContinue))
   def header(): Unit            = click(By.cssSelector(Locators.lnkHeader))
   def removeFile(): Unit        = click(By.cssSelector(Locators.lnkRemoveFile))
-  def signOutLink(): Unit       = click(By.cssSelector(Locators.signOut))
+  def clickSignOutLink(): Unit  = click(By.ByLinkText(Locators.signOut))
 
   /** Navigation methods */
   def navigateToPage(url: String): Unit = driver.navigate().to(url)
