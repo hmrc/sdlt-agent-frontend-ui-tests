@@ -36,9 +36,10 @@ import org.scalatest.{BeforeAndAfterAll, BeforeAndAfterEach, GivenWhenThen}
 import org.scalatest.featurespec.AnyFeatureSpec
 import org.scalatest.verbs.ShouldVerb
 import uk.gov.hmrc.selenium.webdriver.{Browser, ScreenshotOnFailure}
-import uk.gov.hmrc.ui.pages.{AgentContactDetailsPage, AgentsDetailsPage, AgentsNamePage, AuthWizard, CheckYourAnswersPage, DoYouWantToAddContactDetailsPage, FeedBackPage, FindAgentAddressPage, RemoveAgentPage}
+import uk.gov.hmrc.ui.pages.{AccessDeniedPage, AgentContactDetailsPage, AgentsDetailsPage, AgentsNamePage, AuthWizard, CheckYourAnswersPage, DoYouWantToAddContactDetailsPage, FeedBackPage, FindAgentAddressPage, RemoveAgentPage}
 import uk.gov.hmrc.ui.util.Users.LoginTypes.HASDIRECT
 import uk.gov.hmrc.ui.util.Users.UserTypes.Organisation
+import uk.gov.hmrc.ui.util.Users.UserTypes.Agent_Trust
 
 class AddAgentSpec
     extends AnyFeatureSpec
@@ -128,6 +129,31 @@ class AddAgentSpec
       Then("User navigates to Agent details page")
       AgentsDetailsPage.verifyPageTitle(AgentsDetailsPage.pageTitle)
       AgentsDetailsPage.verifySuccessBannerMessage("You have removed Harborview Estates")
+    }
+
+    Scenario("Check Auth Auard Agent journey") {
+      Given("User enters login using the Authority Wizard page using org as affinity group and org as enrolment key")
+      AuthWizard.login(HASDIRECT, Organisation, "IR-SDLT-ORG", "STN001")
+      Then("User navigates to Agent details page")
+      AgentsDetailsPage.verifyPageTitle(AgentsDetailsPage.pageTitle)
+      Then("User navigates back to Authority Wizard page")
+      AgentsDetailsPage.clickBackLink()
+      Then("User navigates to agent page using Agent as affinity group and Agent as enrolment key")
+      AuthWizard.loginAsAgent(HASDIRECT, Agent_Trust, "IR-SDLT-AGENT", "STN001", "Activated")
+      Then("User navigates to Agent details page with Agent affinity group and Agent enrolment key")
+      AgentsDetailsPage.verifyPageTitle(AgentsDetailsPage.pageTitle)
+      AgentsDetailsPage.clickBackLink()
+      Then("User navigates to agent page using Agent as affinity group and Org as enrolment key")
+      AuthWizard.loginAsAgent(HASDIRECT, Agent_Trust, "IR-SDLT-AGENT", "STN001", "NotYetActivated")
+      Then(
+        "User navigates to Agent details page with Agent affinity group and Agent enrolment key with NotYetActivated"
+      )
+      AgentsDetailsPage.verifyPageTitle(AgentsDetailsPage.pageTitle)
+      AgentsDetailsPage.clickBackLink()
+      Then("User navigates to agent page using Agent as affinity group and Org as enrolment key")
+      AuthWizard.loginAsAgent(HASDIRECT, Agent_Trust, "IR-SDLT-ORG", "STN001", "Activated")
+      Then("User navigates to Agent details page with Agent affinity group and Org enrolment key")
+      AccessDeniedPage.verifyPageTitle(AccessDeniedPage.pageTitle)
     }
   }
 }
