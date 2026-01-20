@@ -21,6 +21,7 @@ import uk.gov.hmrc.ui.pages.AuthWizard.{click, sendKeys}
 import uk.gov.hmrc.ui.util.Env
 import uk.gov.hmrc.ui.util.Users.LoginTypes.HASDIRECT
 import uk.gov.hmrc.ui.util.Users.UserTypes.Organisation
+import uk.gov.hmrc.ui.util.Users.UserTypes.Agent_Trust
 import uk.gov.hmrc.ui.util.Users.UserTypes.Individual
 import uk.gov.hmrc.ui.util.Users.{LoginTypes, UserTypes}
 
@@ -47,6 +48,7 @@ object AuthWizard extends BasePage {
   val saPreset: By        = By.id("presets-dropdown")
   val btnSubmit: By       = By.id("submit")
   val btnAddEnrolment: By = By.id("add-ident-btn-0")
+  val status: By          = By.id("enrolment[0].state")
 
   def buildRedirectUrl(loginType: LoginTypes, userType: UserTypes): String = {
     val Redirect =
@@ -67,6 +69,15 @@ object AuthWizard extends BasePage {
     this
   }
 
+  def fillInputsForAgent(enrolmentKeyVal: String, enrolmentVal: String, statusVal: String): this.type = {
+    driver.findElement(affinityGroup).sendKeys("Agent")
+    driver.findElement(enrolmentKey).sendKeys(enrolmentKeyVal)
+    driver.findElement(enrolmentId).sendKeys("STORN")
+    driver.findElement(enrolmentValue).sendKeys(enrolmentVal)
+    driver.findElement(status).sendKeys(statusVal)
+    this
+  }
+
   def login(loginType: LoginTypes, userType: UserTypes, enrolmentKeyVal: String, enrolmentVal: String): Unit = {
     AuthWizard.navigateToPage(url)
     sendKeys(redirectUrl, buildRedirectUrl(HASDIRECT, Organisation))
@@ -78,6 +89,19 @@ object AuthWizard extends BasePage {
     AuthWizard.navigateToPage(url)
     sendKeys(redirectUrl, buildRedirectUrl(HASDIRECT, Individual))
     driver.findElement(affinityGroup).sendKeys("Individual")
+    click(btnSubmit)
+  }
+
+  def loginAsAgent(
+    loginType: LoginTypes,
+    userType: UserTypes,
+    enrolmentKeyVal: String,
+    enrolmentVal: String,
+    statusVal: String
+  ): Unit = {
+    AuthWizard.navigateToPage(url)
+    sendKeys(redirectUrl, buildRedirectUrl(HASDIRECT, Agent_Trust))
+    fillInputsForAgent(enrolmentKeyVal, enrolmentVal, statusVal)
     click(btnSubmit)
   }
 }
