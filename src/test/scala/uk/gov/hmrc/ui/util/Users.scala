@@ -25,14 +25,10 @@ object Users {
     case object Individual
         extends UserTypes(affinity = "Individual", slug = "ind", landingPage = "aboutyou", slug2 = "")
 
-    case object Partnership
-        extends UserTypes(affinity = "Organisation", slug = "org/partnership", landingPage = "aboutyourorg", slug2 = "")
-
     case object Organisation
         extends UserTypes(affinity = "Organisation", slug = "org", landingPage = "aboutyourorg", slug2 = "contact/paye")
 
-    case object Agent_Trust
-        extends UserTypes(affinity = "Agent", slug = "org/trust", landingPage = "aboutyourclient", slug2 = "")
+    case object Agent extends UserTypes(affinity = "Agent", slug = "agent", landingPage = "aboutyourclient", slug2 = "")
 
   }
 

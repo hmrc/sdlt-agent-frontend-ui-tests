@@ -21,9 +21,10 @@ import uk.gov.hmrc.ui.pages.AuthWizard.{click, sendKeys}
 import uk.gov.hmrc.ui.util.Env
 import uk.gov.hmrc.ui.util.Users.LoginTypes.HASDIRECT
 import uk.gov.hmrc.ui.util.Users.UserTypes.Organisation
-import uk.gov.hmrc.ui.util.Users.UserTypes.Agent_Trust
+import uk.gov.hmrc.ui.util.Users.UserTypes.Agent
 import uk.gov.hmrc.ui.util.Users.UserTypes.Individual
 import uk.gov.hmrc.ui.util.Users.{LoginTypes, UserTypes}
+import org.scalactic.Prettifier.default
 
 object AuthWizard extends BasePage {
 
@@ -61,30 +62,6 @@ object AuthWizard extends BasePage {
     Redirect
   }
 
-  def fillInputs(enrolmentKeyVal: String, enrolmentVal: String): this.type = {
-    driver.findElement(affinityGroup).sendKeys("Organisation")
-    driver.findElement(enrolmentKey).sendKeys(enrolmentKeyVal)
-    driver.findElement(enrolmentId).sendKeys("STORN")
-    driver.findElement(enrolmentValue).sendKeys(enrolmentVal)
-    this
-  }
-
-  def fillInputsForAgent(enrolmentKeyVal: String, enrolmentVal: String, statusVal: String): this.type = {
-    driver.findElement(affinityGroup).sendKeys("Agent")
-    driver.findElement(enrolmentKey).sendKeys(enrolmentKeyVal)
-    driver.findElement(enrolmentId).sendKeys("STORN")
-    driver.findElement(enrolmentValue).sendKeys(enrolmentVal)
-    driver.findElement(status).sendKeys(statusVal)
-    this
-  }
-
-  def login(loginType: LoginTypes, userType: UserTypes, enrolmentKeyVal: String, enrolmentVal: String): Unit = {
-    AuthWizard.navigateToPage(url)
-    sendKeys(redirectUrl, buildRedirectUrl(HASDIRECT, Organisation))
-    fillInputs(enrolmentKeyVal, enrolmentVal)
-    click(btnSubmit)
-  }
-
   def loginAsIndividual(loginType: LoginTypes, userType: UserTypes): Unit = {
     AuthWizard.navigateToPage(url)
     sendKeys(redirectUrl, buildRedirectUrl(HASDIRECT, Individual))
@@ -92,16 +69,33 @@ object AuthWizard extends BasePage {
     click(btnSubmit)
   }
 
-  def loginAsAgent(
+  def fillInputs(
+    userType: UserTypes,
+    enrolmentKeyVal: String,
+    enrolmentVal: String,
+    statusVal: String
+  ): this.type = {
+
+    driver.findElement(affinityGroup).sendKeys(userType.toString)
+    driver.findElement(enrolmentKey).sendKeys(enrolmentKeyVal)
+    driver.findElement(enrolmentId).sendKeys("STORN")
+    driver.findElement(enrolmentValue).sendKeys(enrolmentVal)
+    driver.findElement(status).sendKeys(statusVal)
+    this
+  }
+
+  def login(
     loginType: LoginTypes,
     userType: UserTypes,
     enrolmentKeyVal: String,
     enrolmentVal: String,
     statusVal: String
   ): Unit = {
+
     AuthWizard.navigateToPage(url)
-    sendKeys(redirectUrl, buildRedirectUrl(HASDIRECT, Agent_Trust))
-    fillInputsForAgent(enrolmentKeyVal, enrolmentVal, statusVal)
+    sendKeys(redirectUrl, buildRedirectUrl(loginType, userType))
+    fillInputs(userType, enrolmentKeyVal, enrolmentVal, statusVal)
     click(btnSubmit)
   }
+
 }

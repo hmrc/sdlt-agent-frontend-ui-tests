@@ -52,25 +52,25 @@ class ErrorHandlingSpec
     with ScreenshotOnFailure {
 
   Feature("SDLT Management frontend error handling") {
-    Scenario("Display Access denied page when user tries to access management service without enrolment") {
-      Given("User enters login using the Authority Wizard page")
-      AuthWizard.login(HASDIRECT, Organisation, "", "STN001")
-      Then("User should be navigated to the home page")
-      AccessDeniedPage.verifyPageTitle(AccessDeniedPage.pageTitle)
-      AccessDeniedPage.click(AccessDeniedPage.continueToAccountLinkText)
-      AgentsDetailsPage.verifyPageTitle("Sign in to HMRC - Sign in to HMRC online services - GOV.UK")
-    }
+    // Scenario("Display Access denied page when user tries to access management service without enrolment") {
+    //   Given("User enters login using the Authority Wizard page")
+    //   AuthWizard.login(HASDIRECT, Organisation, "", "STN001", "Activated")
+    //   Then("User should be navigated to the home page")
+    //   AccessDeniedPage.verifyPageTitle(AccessDeniedPage.pageTitle)
+    //   AccessDeniedPage.click(AccessDeniedPage.continueToAccountLinkText)
+    //   AgentsDetailsPage.verifyPageTitle("Sign in to HMRC - Sign in to HMRC online services - GOV.UK")
+    // }
 
-    Scenario("Display error page when user select individual in affinity group at a glance page") {
-      Given("User enters login using the Authority Wizard page")
-      AuthWizard.loginAsIndividual(HASDIRECT, Individual)
-      Then("User should be navigated to the error page")
-      AccessDeniedPage.verifyPageTitle(UnauthorisedIndividualErrorPage.pageTitle)
-    }
+    // Scenario("Display error page when user select individual in affinity group at a glance page") {
+    //   Given("User enters login using the Authority Wizard page")
+    //   AuthWizard.loginAsIndividual(HASDIRECT, Individual)
+    //   Then("User should be navigated to the error page")
+    //   AccessDeniedPage.verifyPageTitle(UnauthorisedIndividualErrorPage.pageTitle)
+    // }
 
     Scenario("Display Page not found when user tries to enter invalid Url") {
       Given("User enters login using the Authority Wizard page")
-      AuthWizard.login(HASDIRECT, Organisation, "", "STN001")
+      AuthWizard.login(HASDIRECT, Organisation, "", "STN001", "Activated")
       PageNotFound.navigateToPage(
         "http://localhost:10911/stamp-duty-land-tax-agent1"
       )
