@@ -36,7 +36,7 @@ import org.scalatest.{BeforeAndAfterAll, BeforeAndAfterEach, GivenWhenThen}
 import org.scalatest.featurespec.AnyFeatureSpec
 import org.scalatest.verbs.ShouldVerb
 import uk.gov.hmrc.selenium.webdriver.{Browser, ScreenshotOnFailure}
-import uk.gov.hmrc.ui.pages.{AccessDeniedPage, AgentsDetailsPage, AuthWizard, PageNotFound, UnauthorisedIndividualErrorPage}
+import uk.gov.hmrc.ui.pages.{AccessDeniedPage, AuthWizard, PageNotFound, UnauthorisedIndividualErrorPage}
 import uk.gov.hmrc.ui.util.Users.LoginTypes.HASDIRECT
 import uk.gov.hmrc.ui.util.Users.UserTypes.Organisation
 import uk.gov.hmrc.ui.util.Users.UserTypes.Individual
@@ -57,8 +57,8 @@ class ErrorHandlingSpec
       AuthWizard.login(HASDIRECT, Organisation, "", "STN001")
       Then("User should be navigated to the home page")
       AccessDeniedPage.verifyPageTitle(AccessDeniedPage.pageTitle)
-      AccessDeniedPage.click(AccessDeniedPage.continueToAccountLinkText)
-      AgentsDetailsPage.verifyPageTitle("Sign in to HMRC - Sign in to HMRC online services - GOV.UK")
+      val actualHref = AccessDeniedPage.getAttribute(AccessDeniedPage.continueToAccountLinkText, "href")
+      actualHref shouldBe "https://localhost:9280/account"
     }
 
     Scenario("Display error page when user select individual in affinity group at a glance page") {
