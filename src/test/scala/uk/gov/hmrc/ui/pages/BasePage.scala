@@ -206,4 +206,7 @@ trait BasePage extends PageObject with Eventually with Matchers with LazyLogging
       s"Unexpected banner heading: '$headingText'"
     )
   }
+
+  def getAttribute(selector: By, attributeName: String): String =
+    waitForVisibilityOfElement(selector).getAttribute(attributeName)
 }

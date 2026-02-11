@@ -33,7 +33,7 @@ object AgentContactDetailsPage extends BasePage {
     clickSubmitButton()
   }
 
-  private def getFieldValue(selector: By, fieldName: String): String = {
+  private def getFieldValue(selector: By): String = {
     val element = waitForVisibilityOfElement(selector)
     val value   = element.getAttribute("value")
     if (value == null) {
@@ -48,9 +48,9 @@ object AgentContactDetailsPage extends BasePage {
     waitForVisibilityOfElement(txtTelephoneNo)
     waitForVisibilityOfElement(txtEmailId)
 
-    val value = getFieldValue(txtTelephoneNo, "telephone number")
+    val value = getFieldValue(txtTelephoneNo)
     if (value.isEmpty) {
-      val retryValue = getFieldValue(txtTelephoneNo, "telephone number")
+      val retryValue = getFieldValue(txtTelephoneNo)
       if (retryValue.isEmpty) {
         throw new RuntimeException(
           s"Existing telephone number not found in change mode. Field value: '$retryValue'"
@@ -67,9 +67,9 @@ object AgentContactDetailsPage extends BasePage {
     waitForVisibilityOfElement(txtTelephoneNo)
     waitForVisibilityOfElement(txtEmailId)
 
-    val value = getFieldValue(txtEmailId, "email")
+    val value = getFieldValue(txtEmailId)
     if (value.isEmpty) {
-      val retryValue = getFieldValue(txtEmailId, "email")
+      val retryValue = getFieldValue(txtEmailId)
       if (retryValue.isEmpty) {
         throw new RuntimeException(
           s"Existing email not found in change mode. Field value: '$retryValue'"
