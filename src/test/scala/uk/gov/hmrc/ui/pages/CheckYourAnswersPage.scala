@@ -32,7 +32,7 @@ object CheckYourAnswersPage extends BasePage {
   )
 
   override def pageTitle: String =
-    "Check your answers – Agent details - Stamp Taxes Online - GOV.UK"
+    "Check your answers – Manage agents - Stamp Taxes Online - GOV.UK"
 
   def clickChangeAgentName(): Unit = {
     val element = waitForElementToBeClickable(linkChangeAgentName)
