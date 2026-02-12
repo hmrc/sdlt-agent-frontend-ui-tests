@@ -24,5 +24,5 @@ object RemoveAgentPage extends BasePage {
   val no: String  = "#value-2"
 
   override def pageTitle: String =
-    "Are you sure you want to remove this agent? – Agent details - Stamp Taxes Online - GOV.UK"
+    "Are you sure you want to remove this agent? – Manage agents - Stamp Taxes Online - GOV.UK"
 }

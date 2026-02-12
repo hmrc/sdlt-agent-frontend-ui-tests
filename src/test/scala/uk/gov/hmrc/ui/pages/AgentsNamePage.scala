@@ -24,7 +24,7 @@ object AgentsNamePage extends BasePage {
   val txtAgentName: By         = By.className("govuk-input")
 
   override def pageTitle: String =
-    "What is the agent’s name? – Agent details - Stamp Taxes Online - GOV.UK"
+    "What is the agent’s name? – Manage agents - Stamp Taxes Online - GOV.UK"
 
   def enterAgentName(agentName: String): Unit =
     input(txtAgentName, agentName)

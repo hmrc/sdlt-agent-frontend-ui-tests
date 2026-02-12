@@ -23,5 +23,5 @@ object DoYouWantToAddContactDetailsPage extends BasePage {
   val no: String  = "#value-2"
 
   override def pageTitle: String =
-    "Do you want to add contact details – Agent details - Stamp Taxes Online - GOV.UK"
+    "Do you want to add contact details for the agent? – Manage agents - Stamp Taxes Online - GOV.UK"
 }

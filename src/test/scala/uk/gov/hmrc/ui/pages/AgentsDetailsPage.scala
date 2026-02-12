@@ -21,13 +21,12 @@ import org.openqa.selenium.By
 object AgentsDetailsPage extends BasePage {
 
   override def pageUrl: String = "/manage-agents/agent-overview?paginationIndex=1"
-
-  val btnAddAgent: By = By.cssSelector(".govuk-button")
-  val linkChange: By  =
+  val btnAddAgent: By          = By.cssSelector(".govuk-button")
+  val linkChange: By           =
     By.xpath("//dd[contains(@class, 'govuk-summary-list__actions')]//a[contains(normalize-space(), 'Change')]")
 
   override def pageTitle: String =
-    "Agent overview – Agent details - Stamp Taxes Online - GOV.UK"
+    "Agent overview – Manage agents - Stamp Taxes Online - GOV.UK"
 
   def lnkRemoveAgent(agentName: String): By =
     By.xpath(
