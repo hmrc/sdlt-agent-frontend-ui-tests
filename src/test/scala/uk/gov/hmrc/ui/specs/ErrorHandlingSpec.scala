@@ -36,7 +36,7 @@ import org.scalatest.{BeforeAndAfterAll, BeforeAndAfterEach, GivenWhenThen}
 import org.scalatest.featurespec.AnyFeatureSpec
 import org.scalatest.verbs.ShouldVerb
 import uk.gov.hmrc.selenium.webdriver.{Browser, ScreenshotOnFailure}
-import uk.gov.hmrc.ui.pages.{AccessDeniedPage, AuthWizard, PageNotFound, UnauthorisedIndividualErrorPage}
+import uk.gov.hmrc.ui.pages.{AccessDeniedPage, AuthWizard, CannotReachThisPageUrlHop, PageNotFound, UnauthorisedIndividualErrorPage}
 import uk.gov.hmrc.ui.util.Users.LoginTypes.HASDIRECT
 import uk.gov.hmrc.ui.util.Users.UserTypes.Organisation
 import uk.gov.hmrc.ui.util.Users.UserTypes.Individual
@@ -76,6 +76,19 @@ class ErrorHandlingSpec
       )
       Then("User should be navigated to Page not Found error screen")
       PageNotFound.verifyPageTitle(PageNotFound.pageTitle)
+    }
+
+    Scenario(
+      "Display user cannot reach this page when user tries to url hop to check answers page without going through the flow"
+    ) {
+      Given("User enters login using the Authority Wizard page")
+      AuthWizard.login(HASDIRECT, Organisation, "IR-SDLT-ORG", "STN001")
+      CannotReachThisPageUrlHop.navigateToPage(
+        "http://localhost:10911/stamp-duty-land-tax-agent/manage-agents/check-answers"
+        // "https://www.staging.tax.service.gov.uk/stamp-duty-land-tax-agent/manage-agents/check-answers"
+      )
+      Then("User should be navigated to cannot reach this page error screen")
+      CannotReachThisPageUrlHop.verifyPageTitle(CannotReachThisPageUrlHop.pageTitle)
     }
   }
 }

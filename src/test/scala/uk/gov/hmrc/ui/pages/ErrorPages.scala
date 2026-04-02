@@ -43,3 +43,11 @@ object PageNotFound extends BasePage {
   val pageTitle: String =
     "Page not found - Stamp Taxes Online - GOV.UK"
 }
+
+object CannotReachThisPageUrlHop extends BasePage {
+
+  val pageUrl: String = "/check-answers"
+
+  val pageTitle: String =
+    "You cannot reach this page - Stamp Taxes Online - GOV.UK"
+}
