@@ -85,7 +85,6 @@ class ErrorHandlingSpec
       AuthWizard.login(HASDIRECT, Organisation, "IR-SDLT-ORG", "STN001")
       CannotReachThisPageUrlHop.navigateToPage(
         "http://localhost:10911/stamp-duty-land-tax-agent/manage-agents/check-answers"
-        // "https://www.staging.tax.service.gov.uk/stamp-duty-land-tax-agent/manage-agents/check-answers"
       )
       Then("User should be navigated to cannot reach this page error screen")
       CannotReachThisPageUrlHop.verifyPageTitle(CannotReachThisPageUrlHop.pageTitle)
