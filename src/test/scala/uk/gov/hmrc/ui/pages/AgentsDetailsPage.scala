@@ -20,9 +20,10 @@ import org.openqa.selenium.By
 
 object AgentsDetailsPage extends BasePage {
 
-  override def pageUrl: String = "/manage-agents/agent-overview?paginationIndex=1"
-  val btnAddAgent: By          = By.cssSelector(".govuk-button")
-  val linkChange: By           =
+  override def pageUrl: String   = "/manage-agents/agent-overview?paginationIndex=1"
+  val btnAddAgent: By            = By.cssSelector(".govuk-button")
+  val radioButtonForAgentYes: By = By.xpath("//label[normalize-space()='Yes']")
+  val linkChange: By             =
     By.xpath("//dd[contains(@class, 'govuk-summary-list__actions')]//a[contains(normalize-space(), 'Change')]")
 
   override def pageTitle: String =
@@ -39,6 +40,11 @@ object AgentsDetailsPage extends BasePage {
       s"//dt[contains(normalize-space(), '$agentName')]" +
         "/following-sibling::dd//a[contains(normalize-space(), 'Change')]"
     )
+
+  def clickAddAgentRadioButton(): Unit = {
+    val element = waitForElementToBeClickable(radioButtonForAgentYes)
+    element.click()
+  }
 
   def clickAddAgent(): Unit = {
     val element = waitForElementToBeClickable(btnAddAgent)
