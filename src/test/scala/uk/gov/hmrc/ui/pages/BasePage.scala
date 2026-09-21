@@ -38,7 +38,9 @@ trait BasePage extends PageObject with Eventually with Matchers with LazyLogging
 
   /** Locator values */
   object Locators {
-    val btnContinue         = ".govuk-button"
+    val btnContinue         = "//*[contains(@class,'govuk-button') and normalize-space()='Continue']"
+    val btnSaveAndContinue  = "//*[contains(@class,'govuk-button') and normalize-space()='Save and continue']"
+    val btnConfirmAddress   = "continue"
     val lnkBack             = "Back"
     val btnSubmit           = ".govuk-button"
     val lnkHeader           = ".govuk-header__link.govuk-header__service-name"
@@ -98,13 +100,14 @@ trait BasePage extends PageObject with Eventually with Matchers with LazyLogging
   }
 
   /** Specific actions */
-  def clickSubmitButton(): Unit = click(By.cssSelector(Locators.btnSubmit))
-  def clickBackLink(): Unit     = click(By.linkText(Locators.lnkBack))
-  def saveAndContinue(): Unit   = click(By.cssSelector(Locators.btnContinue))
-  def acceptAndContinue(): Unit = click(By.cssSelector(Locators.btnContinue))
-  def header(): Unit            = click(By.cssSelector(Locators.lnkHeader))
-  def removeFile(): Unit        = click(By.cssSelector(Locators.lnkRemoveFile))
-  def clickSignOutLink(): Unit  = click(By.ByLinkText(Locators.signOut))
+  def clickSubmitButton(): Unit   = click(By.xpath(Locators.btnContinue))
+  def clickBackLink(): Unit       = click(By.linkText(Locators.lnkBack))
+  def saveAndContinue(): Unit     = click(By.xpath(Locators.btnSaveAndContinue))
+  def acceptAndContinue(): Unit   = click(By.cssSelector(Locators.btnContinue))
+  def clickConfirmAddress(): Unit = click(By.id(Locators.btnConfirmAddress))
+  def header(): Unit              = click(By.cssSelector(Locators.lnkHeader))
+  def removeFile(): Unit          = click(By.cssSelector(Locators.lnkRemoveFile))
+  def clickSignOutLink(): Unit    = click(By.ByLinkText(Locators.signOut))
 
   /** Navigation methods */
   def navigateToPage(url: String): Unit = driver.navigate().to(url)
