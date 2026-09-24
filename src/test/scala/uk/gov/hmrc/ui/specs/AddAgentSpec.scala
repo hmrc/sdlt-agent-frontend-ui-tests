@@ -36,7 +36,7 @@ import org.scalatest.{BeforeAndAfterAll, BeforeAndAfterEach, GivenWhenThen}
 import org.scalatest.featurespec.AnyFeatureSpec
 import org.scalatest.verbs.ShouldVerb
 import uk.gov.hmrc.selenium.webdriver.{Browser, ScreenshotOnFailure}
-import uk.gov.hmrc.ui.pages.{AgentContactDetailsPage, AgentsDetailsPage, AgentsNamePage, AuthWizard, CheckYourAnswersPage, DoYouWantToAddContactDetailsPage, FindAgentAddressPage, RemoveAgentPage}
+import uk.gov.hmrc.ui.pages.{AgentBeforeYouStartPage, AgentContactDetailsPage, AgentsDetailsPage, AgentsNamePage, AuthWizard, CheckYourAnswersPage, DoYouWantToAddContactDetailsPage, FindAgentAddressPage, RemoveAgentPage}
 import uk.gov.hmrc.ui.util.Users.LoginTypes.HASDIRECT
 import uk.gov.hmrc.ui.util.Users.UserTypes.Organisation
 
@@ -54,6 +54,10 @@ class AddAgentSpec
     Scenario("Add an agent when the Agent details page has no agents") {
       Given("User enters login using the Authority Wizard page")
       AuthWizard.login(HASDIRECT, Organisation, "IR-SDLT-ORG", "STN002")
+      When("User navigates to Before You Start page")
+      AgentBeforeYouStartPage.verifyPageTitle(AgentBeforeYouStartPage.pageTitle)
+      And("User clicks Save and Continue Button")
+      AgentBeforeYouStartPage.saveAndContinue()
       When("User navigates to Agent details page")
       AgentsDetailsPage.verifyPageTitle(AgentsDetailsPage.pageTitle)
       And("User selects Yes to add another agent")
