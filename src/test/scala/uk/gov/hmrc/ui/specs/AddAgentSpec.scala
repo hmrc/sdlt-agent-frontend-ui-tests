@@ -36,7 +36,7 @@ import org.scalatest.{BeforeAndAfterAll, BeforeAndAfterEach, GivenWhenThen}
 import org.scalatest.featurespec.AnyFeatureSpec
 import org.scalatest.verbs.ShouldVerb
 import uk.gov.hmrc.selenium.webdriver.{Browser, ScreenshotOnFailure}
-import uk.gov.hmrc.ui.pages.{AgentContactDetailsPage, AgentsDetailsPage, AgentsNamePage, AuthWizard, CheckYourAnswersPage, DoYouWantToAddContactDetailsPage, FindAgentAddressPage, RemoveAgentPage}
+import uk.gov.hmrc.ui.pages.{AgentContactDetailsPage, AgentsBYSPage, AgentsDetailsPage, AgentsNamePage, AuthWizard, CheckYourAnswersPage, DoYouWantToAddContactDetailsPage, FindAgentAddressPage, RemoveAgentPage}
 import uk.gov.hmrc.ui.util.Users.LoginTypes.HASDIRECT
 import uk.gov.hmrc.ui.util.Users.UserTypes.Organisation
 
@@ -60,6 +60,8 @@ class AddAgentSpec
       AgentsDetailsPage.clickAddAgentRadioButton()
       And("User clicks Add Agent button")
       AgentsDetailsPage.clickAddAgent()
+      AgentsBYSPage.verifyPageTitle(AgentsBYSPage.pageTitle)
+      AgentsBYSPage.clickSubmitButton()
       AgentsNamePage.verifyPageTitle(AgentsNamePage.pageTitle)
       AgentsNamePage.enterAgentName("Test Agent. Rugby")
       AgentsNamePage.clickSubmitButton()
@@ -101,7 +103,7 @@ class AddAgentSpec
       AgentsDetailsPage.clickAddAgentRadioButton()
       Then("User clicks Add Agent button")
       AgentsDetailsPage.clickAddAgent()
-      AgentsNamePage.verifyPageTitle(AgentsNamePage.pageTitle)
+      AgentsBYSPage.verifyPageTitle(AgentsBYSPage.pageTitle)
     }
 
     Scenario("Remove Agent journey - select No then Yes") {
